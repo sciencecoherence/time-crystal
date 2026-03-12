@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script src="/router.js"></script>
+  <script src="router.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Retreat — Science Coherence · Vilcabamba, Ecuador</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -993,7 +993,7 @@
                   Set action="https://your-endpoint.com" or handle via fetch() in the JS below.
                   Auto-response email should confirm receipt and set expectations per the app-note above.
                 -->
-                Your application is reviewed personally.<br>Confirmation within 48 hours.
+                Your application is reviewed personally.<br>Confirmation within 48 hours. If the direct form channel is unavailable, an email draft will open with your answers prefilled.
               </p>
             </div>
 
@@ -1123,6 +1123,24 @@
     //      Netlify:   Use action attribute + method="POST" instead
     //      Custom API: Your own POST handler URL
     // ─────────────────────────────────────────────────────────────────
+    function formatFieldLabel(key) {
+      return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase())
+        .trim();
+    }
+
+    function buildMailtoLink(data) {
+      const subject = `Retreat Application - ${data.name || 'Science Coherence'}`;
+      const body = Object.entries(data)
+        .map(([key, value]) => `${formatFieldLabel(key)}: ${value}`)
+        .join('\n');
+      return `mailto:contact@sciencecoherence.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    const retreatFormEndpoint = window.SCIENCE_COHERENCE_RETREAT_ENDPOINT || '';
+
     document.getElementById('appForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
@@ -1131,10 +1149,18 @@
 
       const formData = new FormData(this);
       const data = Object.fromEntries(formData.entries());
+      const fallbackMailto = buildMailtoLink(data);
+
+      if (!retreatFormEndpoint) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+        window.location.href = fallbackMailto;
+        return;
+      }
 
       try {
         // ── Replace this URL with your backend endpoint ──
-        const response = await fetch('YOUR_BACKEND_ENDPOINT_HERE', {
+        const response = await fetch(retreatFormEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -1147,6 +1173,10 @@
           throw new Error('Server error');
         }
       } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+        window.location.href = fallbackMailto;
+        return;
         // Graceful fallback — show success UI anyway (remove in production if backend is live)
         document.getElementById('appForm').style.display = 'none';
         document.getElementById('formSuccess').classList.add('visible');

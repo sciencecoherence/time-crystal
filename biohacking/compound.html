@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocol In Development — Bio-Hacking Command</title>
+  <style>
+    :root {
+      --bg: #071014;
+      --panel: rgba(11, 20, 28, 0.94);
+      --panel-soft: rgba(17, 28, 39, 0.9);
+      --line: rgba(121, 182, 176, 0.2);
+      --text: #d2dde6;
+      --text-dim: #8fa5b2;
+      --teal: #79b6b0;
+      --amber: #cb9c66;
+      --font-display: "Playfair Display", Georgia, serif;
+      --font-body: "Jost", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(121, 182, 176, 0.12), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(203, 156, 102, 0.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .top-link {
+      display: inline-flex;
+      margin-bottom: 18px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .panel {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 36px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 68px);
+      font-weight: 500;
+      line-height: 0.98;
+    }
+
+    .lede {
+      margin: 0 0 24px;
+      max-width: 62ch;
+      color: var(--text-dim);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-dim);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .action:hover {
+      transform: translateY(-1px);
+      border-color: rgba(121, 182, 176, 0.45);
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <a class="top-link" href="index.html">← Back to Bio-Hacking Hub</a>
+    <section class="panel">
+      <div class="badge-row">
+        <span class="badge">Protocol Registered</span>
+        <span class="badge">Write-up In Progress</span>
+      </div>
+      <h1 id="protocol-title">Protocol in Development</h1>
+      <p class="lede" id="protocol-summary">This compound has already been indexed inside the Regenesis library, but the full mechanistic write-up has not been published yet.</p>
+
+      <div class="grid">
+        <article class="card">
+          <h2>What’s Coming</h2>
+          <p>Mechanistic overview, timing window, stack logic, contraindications, and coherence-specific use context.</p>
+        </article>
+        <article class="card">
+          <h2>Why This Page Exists</h2>
+          <p>The library can now stay navigable without sending readers into broken paths while the detailed protocol pages are being authored.</p>
+        </article>
+        <article class="card">
+          <h2>Current Status</h2>
+          <p id="protocol-status">Queued for expansion inside the Bio-Hacking Command knowledge base.</p>
+        </article>
+      </div>
+
+      <div class="actions">
+        <a class="action" href="extracts.html">Standardized Extracts</a>
+        <a class="action" href="foundations.html">Foundational Compounds</a>
+        <a class="action" href="index.html">Bio-Hacking Hub</a>
+        <a class="action" href="../index.html">Portal</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const protocolMap = {
+      erinamax: {
+        title: 'ErinaMAX',
+        summary: 'This compound is catalogued under the standardized extracts layer. The dedicated page for its mechanistic profile, timing window, and protocol logic is still being crystallized.',
+        status: 'Queued under neuroplasticity / NGF support.'
+      },
+      cognance: {
+        title: 'Cognance',
+        summary: 'This compound is catalogued under the standardized extracts layer. The dedicated page for its mechanistic profile, timing window, and protocol logic is still being crystallized.',
+        status: 'Queued under creative cognition and receptor modulation.'
+      },
+      ecklonia: { title: 'Ecklonia Cava', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under vascular and cholinergic support.' },
+      gotukola: { title: 'Gotu Kola', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under neural architecture and collagen support.' },
+      agmatine: { title: 'Agmatine Sulfate', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under neuromodulation and receptor reset support.' },
+      saffron: { title: 'Saffron Extract', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under mood, visual signal, and serotonin support.' },
+      tribugen: { title: 'TRIBUGEN', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under androgen drive and motor recruitment.' },
+      blackginger: { title: 'Black Ginger', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under metabolic throughput and vascular flow.' },
+      cistamax: { title: 'CistaMAX', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under anabolic and reproductive support.' },
+      c3g: { title: 'C3G', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under glucose partitioning and metabolic resilience.' },
+      andrographis: { title: 'Andrographis', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under inflammatory control and immune recalibration.' },
+      astaxanthin: { title: 'Astaxanthin', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under membrane protection and antioxidant load management.' },
+      nigella: { title: 'Nigella Sativa', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under metabolic and respiratory resilience.' },
+      tudca: { title: 'TUDCA', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under bile flow and cytoprotection.' },
+      injuv: { title: 'Injuv', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under structural hydration and extracellular matrix support.' },
+      ashwagandha: { title: 'Ashwagandha', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under adaptogenic stress buffering.' },
+      panamax: { title: 'PanaMAX', summary: 'This compound is catalogued under the standardized extracts layer. The full write-up is still in development.', status: 'Queued under adaptive energy and resilience.' },
+      glycine: { title: 'Glycine', summary: 'This foundational compound is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under collagen matrix and inhibitory tone support.' },
+      taurine: { title: 'Taurine', summary: 'This foundational compound is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under membrane stability and bile support.' },
+      tmg: { title: 'TMG', summary: 'This foundational compound is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under methylation and osmotic resilience.' },
+      creatine: { title: 'Creatine', summary: 'This foundational compound is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under ATP buffering and neural energy support.' },
+      oakg: { title: 'Ornithine AKG', summary: 'This foundational compound is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under ammonia clearance and recovery support.' },
+      sleep: { title: 'Sleep Architecture', summary: 'This foundational page is indexed inside the substrate architecture layer. The full protocol page is still in development.', status: 'Queued under circadian repair and nocturnal regeneration.' }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const ref = (params.get('ref') || '').toLowerCase();
+    const humanized = ref
+      ? ref.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
+      : 'Protocol in Development';
+    const protocol = protocolMap[ref] || {
+      title: humanized,
+      summary: 'This protocol has been registered in the library, but the full write-up is still in development.',
+      status: 'Queued inside the Bio-Hacking Command knowledge base.'
+    };
+
+    document.title = `${protocol.title} — Bio-Hacking Command`;
+    document.getElementById('protocol-title').textContent = protocol.title;
+    document.getElementById('protocol-summary').textContent = protocol.summary;
+    document.getElementById('protocol-status').textContent = protocol.status;
+  </script>
+</body>
+</html>

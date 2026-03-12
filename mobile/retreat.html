@@ -316,7 +316,7 @@
 
   <!-- NAV -->
   <nav id="nav">
-    <a href="index.html" class="nav-brand">
+    <a href="../index.html" class="nav-brand">
       <svg class="nav-mark" viewBox="0 0 30 30" fill="none">
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4" transform="rotate(-35 15 15)"/>
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25" transform="rotate(35 15 15)"/>
@@ -791,7 +791,7 @@
             BACKEND: Replace fetch URL with your endpoint.
             e.g. Formspree: 'https://formspree.io/f/YOUR_ID'
           -->
-          Your application is reviewed personally.<br>Confirmation within 48 hours.
+          Your application is reviewed personally.<br>Confirmation within 48 hours. If the direct form channel is unavailable, an email draft will open with your answers prefilled.
         </p>
       </form>
 
@@ -838,10 +838,10 @@
       <div>
         <div class="footer-col-title">Framework</div>
         <ul class="footer-links">
-          <li><a href="cosmos.html">Cosmos</a></li>
-          <li><a href="ethos.html">Ethos</a></li>
-          <li><a href="regenesis.html">Regenesis</a></li>
-          <li><a href="index.html">Back to Framework</a></li>
+          <li><a href="../cosmos.html">Cosmos</a></li>
+          <li><a href="../ethos.html">Ethos</a></li>
+          <li><a href="../regenesis.html">Regenesis</a></li>
+          <li><a href="../main.html">Back to Framework</a></li>
         </ul>
       </div>
     </div>
@@ -890,6 +890,24 @@
       });
     });
 
+    function formatFieldLabel(key) {
+      return key
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase())
+        .trim();
+    }
+
+    function buildMailtoLink(data) {
+      const subject = `Retreat Application - ${data.name || 'Science Coherence'}`;
+      const body = Object.entries(data)
+        .map(([key, value]) => `${formatFieldLabel(key)}: ${value}`)
+        .join('\n');
+      return `mailto:contact@sciencecoherence.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    const retreatFormEndpoint = window.SCIENCE_COHERENCE_RETREAT_ENDPOINT || '';
+
     // Form
     document.getElementById('appForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -897,8 +915,16 @@
       btn.disabled = true;
       btn.textContent = 'Submitting…';
       const data = Object.fromEntries(new FormData(this).entries());
+      const fallbackMailto = buildMailtoLink(data);
+
+      if (!retreatFormEndpoint) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+        window.location.href = fallbackMailto;
+        return;
+      }
       try {
-        const response = await fetch('YOUR_BACKEND_ENDPOINT_HERE', {
+        const response = await fetch(retreatFormEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -908,6 +934,10 @@
           document.getElementById('formSuccess').classList.add('visible');
         } else { throw new Error(); }
       } catch {
+        btn.disabled = false;
+        btn.textContent = 'Submit Application';
+        window.location.href = fallbackMailto;
+        return;
         // Fallback — remove in production once backend is live
         document.getElementById('appForm').style.display = 'none';
         document.getElementById('formSuccess').classList.add('visible');
