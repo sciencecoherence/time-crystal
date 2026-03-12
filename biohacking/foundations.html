@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foundational Compounds — Bio-Hacking Command | Science Coherence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Cinzel:wght@400;500&family=JetBrains+Mono:wght@300;400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #040508;
+    --obsidian: #07080e;
+    --deep: #0c0d14;
+    --surface: #111218;
+    --raised: #17181f;
+    --border-dim: #1a1b24;
+    --border: #232430;
+
+    --text-faint: #2e3040;
+    --text-dim: #4a4e66;
+    --text-mid: #6e7490;
+    --text-body: #9ca3b8;
+    --text-bright: #c0c6d8;
+    --text-head: #e2e6f0;
+
+    --amber: #9a7848;
+    --amber-light: #b89060;
+
+    --tc: #3a9488;
+    --tc-light: #5ab8aa;
+
+    --cs-core: #5a84c8;
+    --cs-light: #7aa8e8;
+
+    /* Foundation-specific category colors */
+    --cat-structural: #5ab8aa;    /* teal — collagen/matrix */
+    --cat-methyl: #5a84c8;        /* blue — methylation */
+    --cat-energy: #c0392b;        /* red — ATP/energy */
+    --cat-detox: #27ae60;         /* green — clearance */
+    --cat-stability: #b89060;     /* amber — cellular stability */
+    --cat-sleep: #8a6fc8;         /* purple — recovery */
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-label: 'Cinzel', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Jost', sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── GRAIN ── */
+  .grain {
+    position: fixed; inset: -50%; width: 200%; height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .028; pointer-events: none; z-index: 9998;
+    animation: grainShift .5s steps(2) infinite;
+  }
+  @keyframes grainShift {
+    0% { transform: translate(0,0) } 25% { transform: translate(-2%,-1%) }
+    50% { transform: translate(1%,2%) } 75% { transform: translate(-1%,1%) }
+    100% { transform: translate(2%,-2%) }
+  }
+
+  /* ── CURSOR ── */
+  .cursor-dot {
+    position: fixed; width: 7px; height: 7px;
+    background: var(--cs-light); border-radius: 50%;
+    pointer-events: none; z-index: 10000;
+    transform: translate(-50%,-50%);
+    transition: width .3s var(--ease-out), height .3s var(--ease-out);
+  }
+  .cursor-ring {
+    position: fixed; width: 34px; height: 34px;
+    border: 1px solid rgba(122,168,232,.28); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: all .4s var(--ease-out);
+  }
+  .cursor-dot.hov { width: 5px; height: 5px; }
+  .cursor-ring.hov { width: 52px; height: 52px; border-color: rgba(122,168,232,.12); }
+
+  /* ── STARFIELD ── */
+  .starfield { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000; padding: 26px 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: padding .5s var(--ease-out), background .5s, border-color .5s;
+    border-bottom: 1px solid transparent;
+  }
+  .site-nav.scrolled {
+    padding: 16px 72px;
+    background: rgba(4,5,8,.95);
+    backdrop-filter: blur(24px);
+    border-bottom-color: var(--border-dim);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-wordmark { font-family: var(--font-display); font-size: 15px; font-weight: 500; color: var(--text-head); letter-spacing: .05em; }
+  .nav-sep { font-family: var(--font-label); font-size: 9px; letter-spacing: .3em; color: var(--text-faint); }
+  .nav-sub { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--cs-core); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-link { font-family: var(--font-label); font-size: 9px; letter-spacing: .35em; color: var(--text-faint); transition: color .3s; text-transform: uppercase; }
+  .nav-link:hover { color: var(--cs-light); }
+  .nav-link.active { color: var(--cs-light); }
+
+  /* ── UTILS ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 72px; }
+  .lbl { font-family: var(--font-label); font-size: 9px; letter-spacing: .4em; text-transform: uppercase; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 60vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start;
+    padding: 0 0 80px; padding-top: 140px;
+    position: relative; overflow: hidden; z-index: 1;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 30%; right: 0;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(90,132,200,.06) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-cs 12s ease-in-out infinite;
+  }
+  @keyframes pulse-cs {
+    0%, 100% { transform: scale(1); opacity: .5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  .hero-back {
+    font-family: var(--font-mono); font-size: .62rem;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 56px; transition: color .3s;
+    position: relative; z-index: 1;
+    animation: fadeIn .8s ease-out .1s both;
+  }
+  .hero-back:hover { color: var(--cs-light); }
+  .hero-back::before { content: '←'; font-size: .8rem; transition: transform .3s var(--ease-out); }
+  .hero-back:hover::before { transform: translateX(-4px); }
+
+  .hero-badge {
+    font-family: var(--font-mono); font-size: .63rem;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--cs-core);
+    border: 1px solid rgba(90,132,200,.3);
+    padding: .4rem 1.2rem; margin-bottom: 2.4rem;
+    position: relative; z-index: 1;
+    animation: fadeIn .8s ease-out .2s both;
+    display: inline-block;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 400; font-style: italic;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1.02; letter-spacing: -.02em;
+    color: var(--text-head);
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .4s both;
+  }
+  .hero-title em { color: var(--cs-light); font-style: normal; }
+
+  .hero-subtitle {
+    font-family: var(--font-mono); font-size: .72rem;
+    letter-spacing: .18em; color: var(--text-mid);
+    margin-top: 2rem; text-transform: uppercase;
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .7s both;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    margin-top: 2.4rem;
+    display: flex; gap: 48px;
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .9s both;
+  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-num {
+    font-family: var(--font-display); font-size: 36px;
+    font-style: italic; color: var(--text-bright); line-height: 1;
+  }
+  .hero-meta-label { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em; color: var(--text-dim); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── SUBSTRATE DOCTRINE ── */
+  .doctrine {
+    padding: 100px 0;
+    border-top: 1px solid var(--border-dim);
+    position: relative; z-index: 1;
+    background: var(--obsidian);
+  }
+  .doctrine::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at left, rgba(90,132,200,.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .doctrine-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 100px; align-items: start;
+  }
+  .doctrine-left { position: sticky; top: 120px; }
+  .doctrine-axis {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .5em; color: var(--cs-core);
+    margin-bottom: 20px;
+  }
+  .doctrine-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.8vw, 38px);
+    font-style: italic; color: var(--text-head);
+    line-height: 1.1; letter-spacing: -.018em;
+  }
+  .doctrine-title em { color: var(--cs-light); font-style: normal; }
+  .doctrine-rule { width: 36px; height: 1px; background: var(--cs-core); margin-top: 24px; }
+  .doctrine-body { font-size: 15px; font-weight: 300; color: var(--text-mid); line-height: 1.9; }
+  .doctrine-body p { margin-bottom: 24px; }
+  .doctrine-body p:last-child { margin-bottom: 0; }
+  .doctrine-body em { color: var(--text-bright); font-style: normal; }
+
+  /* ── COMPOUND GRID ── */
+  .grid-section {
+    padding: 80px 0 100px;
+    position: relative; z-index: 1;
+  }
+  .grid-section-label {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .5em; color: var(--text-faint);
+    margin-bottom: 48px; text-transform: uppercase;
+  }
+
+  .compound-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border-dim);
+  }
+
+  .compound-card {
+    background: var(--obsidian);
+    padding: 48px 44px;
+    display: flex; flex-direction: column;
+    gap: 0;
+    position: relative; overflow: hidden;
+    transition: background .4s var(--ease-out);
+    text-decoration: none; color: inherit;
+  }
+  .compound-card:hover { background: var(--deep); }
+  .compound-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px;
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .5s var(--ease-out);
+  }
+  .compound-card:hover::before { transform: scaleY(1); }
+
+  .cc-structural::before { background: var(--cat-structural); }
+  .cc-methyl::before { background: var(--cat-methyl); }
+  .cc-energy::before { background: var(--cat-energy); }
+  .cc-detox::before { background: var(--cat-detox); }
+  .cc-stability::before { background: var(--cat-stability); }
+  .cc-sleep::before { background: var(--cat-sleep); }
+
+  .card-cat {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .35em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cc-structural .card-cat { color: var(--cat-structural); }
+  .cc-methyl .card-cat { color: var(--cat-methyl); }
+  .cc-energy .card-cat { color: var(--cat-energy); }
+  .cc-detox .card-cat { color: var(--cat-detox); }
+  .cc-stability .card-cat { color: var(--cat-stability); }
+  .cc-sleep .card-cat { color: var(--cat-sleep); }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 28px; font-style: italic;
+    color: var(--text-head);
+    line-height: 1.05; letter-spacing: -.015em;
+    margin-bottom: 4px;
+  }
+  .card-spec {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: .2em; color: var(--text-dim);
+    margin-bottom: 28px;
+  }
+
+  .card-mechanisms {
+    list-style: none; padding: 0;
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 28px; flex: 1;
+  }
+  .card-mechanisms li {
+    font-size: 13.5px; font-weight: 300;
+    color: var(--text-mid); line-height: 1.65;
+    padding-left: 18px; position: relative;
+    font-style: italic;
+  }
+  .card-mechanisms li::before { content: '—'; position: absolute; left: 0; color: var(--text-faint); }
+
+  .card-context {
+    background: rgba(255,255,255,.02);
+    border: 1px solid var(--border-dim);
+    padding: 20px 22px;
+    margin-bottom: 20px;
+  }
+  .card-context-label {
+    font-family: var(--font-label); font-size: 7px;
+    letter-spacing: .3em; margin-bottom: 8px;
+    display: block;
+  }
+  .cc-structural .card-context-label { color: var(--cat-structural); }
+  .cc-methyl .card-context-label { color: var(--cat-methyl); }
+  .cc-energy .card-context-label { color: var(--cat-energy); }
+  .cc-detox .card-context-label { color: var(--cat-detox); }
+  .cc-stability .card-context-label { color: var(--cat-stability); }
+  .cc-sleep .card-context-label { color: var(--cat-sleep); }
+
+  .card-context-body {
+    font-size: 12.5px; font-weight: 300;
+    color: var(--text-faint); font-style: italic;
+    line-height: 1.75;
+  }
+
+  .card-speculative {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: .06em; line-height: 1.6;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border-dim);
+    padding-top: 16px;
+  }
+  .spec-label {
+    font-family: var(--font-label); font-size: 7px;
+    letter-spacing: .3em; color: var(--text-faint);
+    margin-bottom: 4px; display: block;
+  }
+
+  .card-arrow {
+    position: absolute; bottom: 32px; right: 32px;
+    width: 22px; height: 22px;
+    border: 1px solid var(--border-dim);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .3s, border-color .3s;
+    font-family: var(--font-mono); font-size: 10px;
+  }
+  .compound-card:hover .card-arrow { opacity: 1; }
+  .cc-structural:hover .card-arrow { border-color: var(--cat-structural); color: var(--cat-structural); }
+  .cc-methyl:hover .card-arrow { border-color: var(--cat-methyl); color: var(--cat-methyl); }
+  .cc-energy:hover .card-arrow { border-color: var(--cat-energy); color: var(--cat-energy); }
+  .cc-detox:hover .card-arrow { border-color: var(--cat-detox); color: var(--cat-detox); }
+  .cc-stability:hover .card-arrow { border-color: var(--cat-stability); color: var(--cat-stability); }
+  .cc-sleep:hover .card-arrow { border-color: var(--cat-sleep); color: var(--cat-sleep); }
+
+  /* ── HIERARCHY SECTION ── */
+  .hierarchy {
+    padding: 100px 0 120px;
+    border-top: 1px solid var(--border-dim);
+    position: relative; z-index: 1;
+    background: var(--obsidian);
+  }
+  .hierarchy::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at top right, rgba(90,132,200,.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hierarchy-header { margin-bottom: 64px; }
+  .hierarchy-label {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .5em; color: var(--cs-core);
+    margin-bottom: 16px;
+  }
+  .hierarchy-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 36px);
+    font-style: italic; color: var(--text-head);
+    letter-spacing: -.018em; line-height: 1.1;
+  }
+  .hierarchy-title em { color: var(--cs-light); font-style: normal; }
+  .hierarchy-sub {
+    font-size: 14px; font-weight: 300; font-style: italic;
+    color: var(--text-dim); margin-top: 12px;
+    max-width: 560px; line-height: 1.85;
+  }
+
+  .stack-flow {
+    display: flex; flex-direction: column; gap: 2px;
+    background: var(--border-dim);
+  }
+  .stack-row {
+    background: var(--void);
+    display: grid;
+    grid-template-columns: 220px 1fr 280px;
+    align-items: stretch;
+  }
+  .stack-row.header { background: var(--deep); }
+  .stack-row:not(.header):hover { background: var(--deep); }
+  .stack-cell {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border-dim);
+    font-size: 13px; font-weight: 300; color: var(--text-body);
+    font-style: italic; line-height: 1.7;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .stack-cell:last-child { border-right: none; }
+  .stack-cell.label-cell {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .35em; color: var(--text-faint);
+    font-style: normal; align-items: flex-start; justify-content: center;
+  }
+  .stack-compound-name {
+    font-family: var(--font-display); font-size: 16px;
+    font-style: italic; color: var(--text-bright);
+  }
+  .stack-compound-role {
+    font-family: var(--font-mono); font-size: 8.5px;
+    letter-spacing: .18em; margin-top: 4px;
+  }
+  .cc-structural-role { color: var(--cat-structural); }
+  .cc-methyl-role { color: var(--cat-methyl); }
+  .cc-energy-role { color: var(--cat-energy); }
+  .cc-detox-role { color: var(--cat-detox); }
+  .cc-stability-role { color: var(--cat-stability); }
+  .cc-sleep-role { color: var(--cat-sleep); }
+
+  .stack-synergy {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-start;
+  }
+  .synergy-chip {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .18em;
+    border: 1px solid var(--border-dim);
+    padding: 3px 10px;
+    color: var(--text-dim);
+    transition: border-color .3s, color .3s;
+  }
+  .stack-row:hover .synergy-chip {
+    border-color: rgba(90,132,200,.35);
+    color: var(--cs-light);
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--border-dim);
+    padding: 56px 0; position: relative; z-index: 1;
+  }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+  .footer-brand { font-family: var(--font-display); font-size: 14px; font-style: italic; color: var(--text-faint); }
+  .footer-nav { display: flex; gap: 28px; }
+  .footer-nav a { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--text-faint); transition: color .3s; }
+  .footer-nav a:hover { color: var(--cs-light); }
+  .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; color: var(--text-faint); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .container { padding: 0 40px; }
+    .site-nav { padding: 20px 40px; }
+    .site-nav.scrolled { padding: 14px 40px; }
+    .doctrine-inner { grid-template-columns: 1fr; gap: 48px; }
+    .doctrine-left { position: static; }
+    .compound-grid { grid-template-columns: 1fr; }
+    .stack-row { grid-template-columns: 1fr; }
+    .stack-cell.label-cell { display: none; }
+    .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 24px; }
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .compound-card { padding: 36px 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<canvas class="starfield" id="starfield"></canvas>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav class="site-nav" id="nav">
+  <div class="nav-brand">
+    <span class="nav-wordmark">Science Coherence</span>
+    <span class="nav-sep">——</span>
+    <span class="nav-sub lbl">Foundations</span>
+  </div>
+  <div class="nav-links">
+    <a href="biohacking.html" class="nav-link">← Hub</a>
+    <a href="extracts.html" class="nav-link">Extracts</a>
+    <a href="foundations.html" class="nav-link active">Foundations</a>
+    <a href="../tcb-project/index.html" class="nav-link">Portal</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <a href="biohacking.html" class="hero-back">Bio-Hacking Command</a>
+    <div class="hero-badge">REGENESIS — FOUNDATIONAL COMPOUNDS</div>
+    <h1 class="hero-title">Substrate <em>Architecture</em><br>Layer</h1>
+    <p class="hero-subtitle">Amino acids, methyl donors &amp; energy cofactors —<br>the informational ground state of biological coherence</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">6</span>
+        <span class="hero-meta-label lbl">Compounds</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">∞</span>
+        <span class="hero-meta-label lbl">Daily Protocol</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">L0</span>
+        <span class="hero-meta-label lbl">Layer Zero</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTRINE -->
+<section class="doctrine">
+  <div class="container">
+    <div class="doctrine-inner reveal">
+      <div class="doctrine-left">
+        <div class="doctrine-axis lbl">Substrate Doctrine</div>
+        <h2 class="doctrine-title">The <em>Ground State</em> Principle</h2>
+        <div class="doctrine-rule"></div>
+      </div>
+      <div class="doctrine-body">
+        <p>Before any high-potency botanical extract can exert its coherence-enhancing effect, the biological substrate must be intact. The foundational compounds catalogued here are not interventions — they are the <em>preconditions for intervention</em>.</p>
+        <p>They constitute Layer Zero of the time-crystalline hierarchy: the raw molecular architecture upon which all oscillatory coherence is built. A methylation deficit, a glycine shortage, or a depleted creatine pool creates informational noise that no standardized extract can overcome. <em>Substrate integrity always precedes signal quality.</em></p>
+        <p>These compounds are non-negotiable daily inputs — cycled at consistent doses to maintain the informational ground state. They are not timed to acute physiological windows; they are the <em>permanent field background</em> upon which the standardized extract protocol is layered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPOUND GRID -->
+<section class="grid-section">
+  <div class="container">
+    <div class="grid-section-label lbl reveal">6 Compounds — Layer Zero Substrate Protocol</div>
+    <div class="compound-grid" id="compoundGrid">
+
+      <!-- 1. GLYCINE -->
+      <a href="glycine.html" class="compound-card cc-structural reveal">
+        <span class="card-cat">Structural Matrix / Collagen</span>
+        <div class="card-name">Glycine</div>
+        <div class="card-spec">Amino Acid — G — 3–5g Daily</div>
+        <ul class="card-mechanisms">
+          <li>Primary collagen precursor — essential for all connective tissue and neural matrix formation.</li>
+          <li>Methionine buffering — prevents hyperhomocysteinemia in high-meat carnivore protocols.</li>
+          <li>Phase II liver detoxification — glycine conjugation of xenobiotics and bile acid recycling.</li>
+          <li>Inhibitory neurotransmitter in the spinal cord — dampens excitotoxic cascades during peak training load.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Carnivore Protocol Context</span>
+          <div class="card-context-body">Muscle meat is glycine-depleted relative to organ meat. Raw carnivore protocols require explicit glycine supplementation to rebalance the methionine:glycine ratio and sustain collagenous infrastructure in the absence of skin, tendon, and bone broth.</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Functions as the metabolic glue — the informational adhesive maintaining structural coherence across the biophotonic field architecture of the extracellular matrix.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- 2. TAURINE -->
+      <a href="taurine.html" class="compound-card cc-stability reveal">
+        <span class="card-cat">Cellular Stability / Osmolyte</span>
+        <div class="card-name">Taurine</div>
+        <div class="card-spec">Conditionally Essential Amino — 1–3g Daily</div>
+        <ul class="card-mechanisms">
+          <li>Primary intracellular osmolyte — regulates cell volume and membrane potential fidelity.</li>
+          <li>Mitochondrial membrane stabilizer — maintains cristae integrity for electron transport coherence.</li>
+          <li>Bile acid conjugation partner — enhances fat-soluble nutrient absorption in raw carnivore diets.</li>
+          <li>GABAergic modulation — reduces neuronal hyperexcitability and cortisol-driven oscillator disruption.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Carnivore Protocol Context</span>
+          <div class="card-context-body">Highest concentrations found in raw heart and seafood. Taurine is conditionally essential during high-metabolic load — the body's capacity to synthesize it from methionine/cysteine is insufficient under heavy androgenic and training protocols.</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The cellular phase stabilizer — maintains the membrane charge gradient that is the physical substrate for biophotonic field coherence at the cell boundary layer.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- 3. TMG -->
+      <a href="tmg.html" class="compound-card cc-methyl reveal">
+        <span class="card-cat">Methylation Sentinel / Homocysteine</span>
+        <div class="card-name">TMG</div>
+        <div class="card-spec">Trimethylglycine — Betaine — 1–3g Daily</div>
+        <ul class="card-mechanisms">
+          <li>Direct methyl donor — remethylates homocysteine to methionine via BHMT pathway.</li>
+          <li>Osmotic cytoprotection — cellular water retention and liver lipid mobilization.</li>
+          <li>Creatine biosynthesis cofactor — reduces the methylation burden of endogenous creatine synthesis.</li>
+          <li>Upregulates SAM (S-adenosylmethionine) pool for epigenetic maintenance.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Carnivore Protocol Context</span>
+          <div class="card-context-body">High methionine intake from muscle meat increases homocysteine flux. TMG is the primary firewall against hyperhomocysteinemia, operating in parallel with glycine and B12 to maintain the methylation economy under heavy protein turnover.</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The methylation sentinel — ensures that the epigenetic layer (the DNA methylation code) remains coherently maintained under high metabolic flux, preserving the informational integrity of gene expression patterns.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- 4. CREATINE -->
+      <a href="creatine.html" class="compound-card cc-energy reveal">
+        <span class="card-cat">ATP Buffer / Energy System</span>
+        <div class="card-name">Creatine</div>
+        <div class="card-spec">Creatine Monohydrate — 3–5g Daily</div>
+        <ul class="card-mechanisms">
+          <li>Phosphocreatine system — instantaneous ATP regeneration for high-frequency oscillatory demand.</li>
+          <li>Intracellular buffer — maintains pH stability during peak glycolytic load.</li>
+          <li>Neuroprotective — sustains neuronal ATP pools during cognitive intensive states.</li>
+          <li>Reduces myostatin — creates a permissive anabolic environment for muscle fiber re-crystallization.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Time-Crystalline Context</span>
+          <div class="card-context-body">ATP is not merely fuel — it is the primary energy currency of cellular oscillator maintenance. Every Layer 0-4 oscillatory system requires a continuous ATP supply for phase-lock fidelity. Creatine is the buffer that prevents temporal decoherence during high-demand cycles.</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The oscillator buffer — ensures the biological time crystal does not lose phase-lock during high-demand cycles by providing an instantaneous energy reserve for the coherence maintenance machinery.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- 5. OAKG -->
+      <a href="oakg.html" class="compound-card cc-detox reveal">
+        <span class="card-cat">Ammonia Clearance / TCA</span>
+        <div class="card-name">OAKG</div>
+        <div class="card-spec">Ornithine Alpha-Ketoglutarate — 3–5g Daily</div>
+        <ul class="card-mechanisms">
+          <li>Dual ammonia trap — Ornithine feeds the urea cycle; AKG captures free ammonia via glutamate synthesis.</li>
+          <li>TCA cycle anaplerosis — AKG replenishes Krebs cycle intermediates depleted by high protein catabolism.</li>
+          <li>Arginine and citrulline precursor — sustains the nitric oxide production pipeline.</li>
+          <li>Anti-catabolic signaling — preserves lean tissue mass during intensive metabolic protocols.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Carnivore Protocol Context</span>
+          <div class="card-context-body">Raw carnivore diets generate substantial ammonia load from protein catabolism. Without adequate urea cycle capacity, free ammonia accumulates as neurotoxic noise — disrupting coherence at Layer 2 (gap junction oscillator networks) and Layer 3 (the biophotonic field).</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The signal clarifier — by clearing ammonia, OAKG removes one of the most potent sources of temporal decoherence in the high-throughput carnivore metabolic state.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+      <!-- 6. SLEEP -->
+      <a href="sleep.html" class="compound-card cc-sleep reveal">
+        <span class="card-cat">Sleep Architecture / Recovery</span>
+        <div class="card-name">Sleep Protocol</div>
+        <div class="card-spec">The Master Update Cycle — Nightly</div>
+        <ul class="card-mechanisms">
+          <li>Glymphatic clearance — cerebrospinal fluid washout of tau, beta-amyloid and metabolic byproducts.</li>
+          <li>Memory consolidation — hippocampal to neocortical transfer during slow-wave oscillations.</li>
+          <li>GH pulse — the largest endogenous anabolic event occurs in the first deep sleep cycle.</li>
+          <li>Biophotonic reset — the coherence field discharges accumulated noise and re-establishes phase-lock baseline.</li>
+        </ul>
+        <div class="card-context">
+          <span class="card-context-label">Time-Crystalline Context</span>
+          <div class="card-context-body">Sleep is not rest — it is the master update cycle of the biological time crystal. Days build oscillatory load; nights erase entropy. Every intervention in this library depends on the integrity of sleep for its ultimate translation into lasting coherence gain.</div>
+        </div>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The re-crystallization window — during slow-wave and REM sleep, the biological time crystal undergoes phase transition, releasing accumulated informational noise and re-anchoring all 5 nested layers to a coherent baseline state.
+        </div>
+        <div class="card-arrow">↗</div>
+      </a>
+
+    </div><!-- /compound-grid -->
+  </div>
+</section>
+
+<!-- SUBSTRATE HIERARCHY -->
+<section class="hierarchy">
+  <div class="container">
+    <div class="hierarchy-header reveal">
+      <div class="hierarchy-label lbl">Protocol Integration</div>
+      <h2 class="hierarchy-title">Substrate <em>Synergy</em> Map</h2>
+      <p class="hierarchy-sub">How the six foundational compounds interact to maintain the informational ground state, and which standardized extracts they unlock for maximal effect.</p>
+    </div>
+    <div class="stack-flow reveal">
+      <div class="stack-row header">
+        <div class="stack-cell label-cell">Compound</div>
+        <div class="stack-cell label-cell">Primary Role in Coherence Architecture</div>
+        <div class="stack-cell label-cell">Unlocks / Synergizes With</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">Glycine</span>
+          <span class="stack-compound-role cc-structural-role">Structural Matrix</span>
+        </div>
+        <div class="stack-cell">Provides the collagenous scaffold for neural and connective tissue. Buffers methionine toxicity from the raw meat load. Enables glycine conjugation in phase II detox.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Gotu Kola</span>
+            <span class="synergy-chip">ErinaMAX™</span>
+            <span class="synergy-chip">Injuv®</span>
+            <span class="synergy-chip">TMG</span>
+          </div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">Taurine</span>
+          <span class="stack-compound-role cc-stability-role">Cellular Stabilizer</span>
+        </div>
+        <div class="stack-cell">Stabilizes mitochondrial membranes and cell volume. GABAergic dampening of cortisol-driven oscillator disruption. Enables fat-soluble nutrient absorption.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Ashwagandha</span>
+            <span class="synergy-chip">TUDCA</span>
+            <span class="synergy-chip">Astaxanthin</span>
+            <span class="synergy-chip">C3G</span>
+          </div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">TMG</span>
+          <span class="stack-compound-role cc-methyl-role">Methylation Sentinel</span>
+        </div>
+        <div class="stack-cell">Maintains the methylation economy under high methionine flux. Reduces endogenous creatine synthesis cost. Sustains SAM pool for epigenetic integrity.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Glycine</span>
+            <span class="synergy-chip">Creatine</span>
+            <span class="synergy-chip">Andrographis</span>
+            <span class="synergy-chip">TUDCA</span>
+          </div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">Creatine</span>
+          <span class="stack-compound-role cc-energy-role">ATP Buffer</span>
+        </div>
+        <div class="stack-cell">Maintains phosphocreatine reserve for instantaneous high-frequency ATP demand. Neuroprotective buffering of neuronal energy pools. Creates the anabolic floor for re-crystallization.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Black Ginger</span>
+            <span class="synergy-chip">TRIBUGEN™</span>
+            <span class="synergy-chip">CistaMAX™</span>
+            <span class="synergy-chip">TMG</span>
+          </div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">OAKG</span>
+          <span class="stack-compound-role cc-detox-role">Ammonia Scavenger</span>
+        </div>
+        <div class="stack-cell">Clears the primary neurotoxic byproduct of high-throughput protein catabolism. Replenishes TCA cycle intermediates. Sustains the NO production pipeline.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Agmatine</span>
+            <span class="synergy-chip">Ecklonia Cava</span>
+            <span class="synergy-chip">Andrographis</span>
+            <span class="synergy-chip">Glycine</span>
+          </div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-cell">
+          <span class="stack-compound-name">Sleep</span>
+          <span class="stack-compound-role cc-sleep-role">Master Update Cycle</span>
+        </div>
+        <div class="stack-cell">The nightly re-crystallization event. All gains made during the day are consolidated or discarded during sleep. Without sleep integrity, no substrate or extract protocol delivers its full coherence potential.</div>
+        <div class="stack-cell">
+          <div class="stack-synergy">
+            <span class="synergy-chip">Ashwagandha</span>
+            <span class="synergy-chip">Saffron</span>
+            <span class="synergy-chip">ErinaMAX™</span>
+            <span class="synergy-chip">All compounds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">Science Coherence Institute</div>
+      <div class="footer-nav">
+        <a href="biohacking.html">← Hub</a>
+        <a href="extracts.html">Extracts</a>
+        <a href="../tcb-project/index.html">Portal</a>
+      </div>
+      <div class="footer-copy">© 2026 — Protocol 001</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // CURSOR (blue tint for foundations)
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+  function animRing() { rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+  animRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hov'); ring.classList.add('hov'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hov'); ring.classList.remove('hov'); });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+  // STARFIELD (blue tint)
+  (function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = Array.from({ length: 130 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * .9 + .2,
+        a: Math.random(),
+        s: Math.random() * .004 + .001
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.a += s.s; if (s.a > 1) s.s *= -1; if (s.a < 0) s.s *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(122,168,232,${s.a * .55})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    resize(); window.addEventListener('resize', resize); draw();
+  })();
+
+  // REVEAL
+  const revEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standardized Extracts — Bio-Hacking Command | Science Coherence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Cinzel:wght@400;500&family=JetBrains+Mono:wght@300;400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #040508;
+    --obsidian: #07080e;
+    --deep: #0c0d14;
+    --surface: #111218;
+    --raised: #17181f;
+    --border-dim: #1a1b24;
+    --border: #232430;
+
+    --text-faint: #2e3040;
+    --text-dim: #4a4e66;
+    --text-mid: #6e7490;
+    --text-body: #9ca3b8;
+    --text-bright: #c0c6d8;
+    --text-head: #e2e6f0;
+
+    --amber: #9a7848;
+    --amber-light: #b89060;
+
+    --tc: #3a9488;
+    --tc-light: #5ab8aa;
+
+    --cs-core: #5a84c8;
+    --cs-light: #7aa8e8;
+
+    /* Category colors */
+    --cat-neuro: #5ab8aa;
+    --cat-mood: #b89060;
+    --cat-androgen: #c0392b;
+    --cat-metabolic: #27ae60;
+    --cat-cyto: #5a84c8;
+    --cat-adaptogen: #8a6fc8;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-label: 'Cinzel', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Jost', sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── GRAIN ── */
+  .grain {
+    position: fixed;
+    inset: -50%;
+    width: 200%; height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .028;
+    pointer-events: none;
+    z-index: 9998;
+    animation: grainShift .5s steps(2) infinite;
+  }
+  @keyframes grainShift {
+    0% { transform: translate(0,0) } 25% { transform: translate(-2%,-1%) }
+    50% { transform: translate(1%,2%) } 75% { transform: translate(-1%,1%) }
+    100% { transform: translate(2%,-2%) }
+  }
+
+  /* ── CURSOR ── */
+  .cursor-dot {
+    position: fixed; width: 7px; height: 7px;
+    background: var(--tc-light); border-radius: 50%;
+    pointer-events: none; z-index: 10000;
+    transform: translate(-50%,-50%);
+    transition: width .3s var(--ease-out), height .3s var(--ease-out);
+  }
+  .cursor-ring {
+    position: fixed; width: 34px; height: 34px;
+    border: 1px solid rgba(90,180,168,.28); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: all .4s var(--ease-out);
+  }
+  .cursor-dot.hov { width: 5px; height: 5px; }
+  .cursor-ring.hov { width: 52px; height: 52px; border-color: rgba(90,180,168,.12); }
+
+  /* ── STARFIELD ── */
+  .starfield { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000; padding: 26px 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: padding .5s var(--ease-out), background .5s, border-color .5s;
+    border-bottom: 1px solid transparent;
+  }
+  .site-nav.scrolled {
+    padding: 16px 72px;
+    background: rgba(4,5,8,.95);
+    backdrop-filter: blur(24px);
+    border-bottom-color: var(--border-dim);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-wordmark { font-family: var(--font-display); font-size: 15px; font-weight: 500; color: var(--text-head); letter-spacing: .05em; }
+  .nav-sep { font-family: var(--font-label); font-size: 9px; letter-spacing: .3em; color: var(--text-faint); }
+  .nav-sub { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--tc); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-link { font-family: var(--font-label); font-size: 9px; letter-spacing: .35em; color: var(--text-faint); transition: color .3s; text-transform: uppercase; }
+  .nav-link:hover, .nav-link.active { color: var(--tc-light); }
+
+  /* ── UTILS ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 72px; }
+  .lbl { font-family: var(--font-label); font-size: 9px; letter-spacing: .4em; text-transform: uppercase; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 60vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start;
+    padding: 0 0 80px;
+    padding-top: 140px;
+    position: relative; overflow: hidden; z-index: 1;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 30%; right: 0;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(58,148,136,.06) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-tc 12s ease-in-out infinite;
+  }
+  @keyframes pulse-tc {
+    0%, 100% { transform: scale(1); opacity: .5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+  .hero-back {
+    font-family: var(--font-mono);
+    font-size: .62rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 56px;
+    transition: color .3s;
+    position: relative; z-index: 1;
+    animation: fadeIn .8s ease-out .1s both;
+  }
+  .hero-back:hover { color: var(--tc-light); }
+  .hero-back::before {
+    content: '←';
+    font-size: .8rem;
+    transition: transform .3s var(--ease-out);
+  }
+  .hero-back:hover::before { transform: translateX(-4px); }
+
+  .hero-badge {
+    font-family: var(--font-mono); font-size: .63rem;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--tc);
+    border: 1px solid rgba(58,148,136,.3);
+    padding: .4rem 1.2rem; margin-bottom: 2.4rem;
+    position: relative; z-index: 1;
+    animation: fadeIn .8s ease-out .2s both;
+    display: inline-block;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 400; font-style: italic;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1.02; letter-spacing: -.02em;
+    color: var(--text-head);
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .4s both;
+  }
+  .hero-title em { color: var(--tc-light); font-style: normal; }
+  .hero-subtitle {
+    font-family: var(--font-mono); font-size: .72rem;
+    letter-spacing: .18em; color: var(--text-mid);
+    margin-top: 2rem; text-transform: uppercase;
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .7s both;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    margin-top: 2.4rem;
+    display: flex; gap: 48px;
+    position: relative; z-index: 1;
+    animation: fadeIn 1s ease-out .9s both;
+  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-num {
+    font-family: var(--font-display); font-size: 36px;
+    font-style: italic; color: var(--text-bright); line-height: 1;
+  }
+  .hero-meta-label {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .3em; color: var(--text-dim);
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    border-top: 1px solid var(--border-dim);
+    border-bottom: 1px solid var(--border-dim);
+    padding: 20px 0;
+    position: relative; z-index: 1;
+    background: rgba(4,5,8,.6);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 69px;
+  }
+  .filter-inner {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .4em; color: var(--text-faint);
+    margin-right: 12px;
+  }
+  .filter-btn {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .25em; text-transform: uppercase;
+    padding: 5px 14px;
+    border: 1px solid var(--border-dim);
+    color: var(--text-dim);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color .3s, color .3s, background .3s;
+  }
+  .filter-btn:hover { border-color: var(--tc); color: var(--tc-light); }
+  .filter-btn.active { border-color: var(--tc); color: var(--tc-light); background: rgba(58,148,136,.07); }
+
+  /* ── COMPOUND GRID ── */
+  .grid-section {
+    padding: 80px 0 120px;
+    position: relative; z-index: 1;
+  }
+  .grid-section-label {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .5em; color: var(--text-faint);
+    margin-bottom: 48px; text-transform: uppercase;
+  }
+
+  .compound-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border-dim);
+  }
+
+  .compound-card {
+    background: var(--obsidian);
+    padding: 36px 32px;
+    display: flex; flex-direction: column;
+    gap: 0;
+    position: relative; overflow: hidden;
+    transition: background .4s var(--ease-out);
+    text-decoration: none; color: inherit;
+  }
+  .compound-card:hover { background: var(--deep); }
+  .compound-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .5s var(--ease-out);
+  }
+  .compound-card:hover::before { transform: scaleY(1); }
+
+  /* Category accent colors */
+  .cc-neuro::before { background: var(--cat-neuro); }
+  .cc-mood::before { background: var(--cat-mood); }
+  .cc-androgen::before { background: var(--cat-androgen); }
+  .cc-metabolic::before { background: var(--cat-metabolic); }
+  .cc-cyto::before { background: var(--cat-cyto); }
+  .cc-adaptogen::before { background: var(--cat-adaptogen); }
+
+  .card-cat {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .35em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cc-neuro .card-cat { color: var(--cat-neuro); }
+  .cc-mood .card-cat { color: var(--cat-mood); }
+  .cc-androgen .card-cat { color: var(--cat-androgen); }
+  .cc-metabolic .card-cat { color: var(--cat-metabolic); }
+  .cc-cyto .card-cat { color: var(--cat-cyto); }
+  .cc-adaptogen .card-cat { color: var(--cat-adaptogen); }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 22px; font-style: italic;
+    color: var(--text-head);
+    line-height: 1.1; letter-spacing: -.01em;
+    margin-bottom: 4px;
+  }
+  .card-spec {
+    font-family: var(--font-mono); font-size: 9.5px;
+    letter-spacing: .2em; color: var(--text-dim);
+    margin-bottom: 24px;
+  }
+
+  .card-mechanisms {
+    list-style: none; padding: 0;
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 24px; flex: 1;
+  }
+  .card-mechanisms li {
+    font-size: 12.5px; font-weight: 300;
+    color: var(--text-mid); line-height: 1.6;
+    padding-left: 16px; position: relative;
+    font-style: italic;
+  }
+  .card-mechanisms li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--text-faint);
+  }
+
+  .card-speculative {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: .06em; line-height: 1.6;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border-dim);
+    padding-top: 16px; margin-top: 4px;
+  }
+  .spec-label {
+    font-family: var(--font-label); font-size: 7px;
+    letter-spacing: .3em; color: var(--text-faint);
+    margin-bottom: 4px; display: block;
+  }
+
+  .card-arrow {
+    position: absolute; bottom: 28px; right: 28px;
+    width: 20px; height: 20px;
+    border: 1px solid var(--border-dim);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity .3s, border-color .3s;
+  }
+  .compound-card:hover .card-arrow { opacity: 1; }
+  .cc-neuro:hover .card-arrow { border-color: var(--cat-neuro); color: var(--cat-neuro); }
+  .cc-mood:hover .card-arrow { border-color: var(--cat-mood); color: var(--cat-mood); }
+  .cc-androgen:hover .card-arrow { border-color: var(--cat-androgen); color: var(--cat-androgen); }
+  .cc-metabolic:hover .card-arrow { border-color: var(--cat-metabolic); color: var(--cat-metabolic); }
+  .cc-cyto:hover .card-arrow { border-color: var(--cat-cyto); color: var(--cat-cyto); }
+  .cc-adaptogen:hover .card-arrow { border-color: var(--cat-adaptogen); color: var(--cat-adaptogen); }
+
+  .arrow-icon {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    transform: rotate(-45deg);
+    display: inline-block;
+  }
+
+  /* ── PROTOCOL MATRIX ── */
+  .protocol-section {
+    padding: 100px 0 120px;
+    border-top: 1px solid var(--border-dim);
+    position: relative; z-index: 1;
+    background: var(--obsidian);
+  }
+  .protocol-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at top, rgba(58,148,136,.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .protocol-header { margin-bottom: 56px; }
+  .protocol-label {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .5em; color: var(--tc);
+    margin-bottom: 16px;
+  }
+  .protocol-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 38px);
+    font-style: italic; color: var(--text-head);
+    line-height: 1.1; letter-spacing: -.018em;
+  }
+  .protocol-title em { color: var(--tc-light); font-style: normal; }
+  .protocol-sub {
+    font-size: 14px; font-weight: 300; font-style: italic;
+    color: var(--text-dim); margin-top: 12px; max-width: 560px;
+    line-height: 1.85;
+  }
+
+  .matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    background: var(--border-dim);
+  }
+  .matrix-row {
+    background: var(--void);
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 0;
+  }
+  .matrix-row.header {
+    background: var(--deep);
+  }
+  .matrix-cell {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border-dim);
+    font-size: 13px; font-weight: 300; color: var(--text-body); font-style: italic;
+    line-height: 1.7;
+  }
+  .matrix-cell:last-child { border-right: none; }
+  .matrix-cell.label-cell {
+    font-family: var(--font-label); font-size: 8px;
+    letter-spacing: .3em; color: var(--text-faint);
+    font-style: normal;
+    display: flex; align-items: center;
+  }
+  .matrix-row:not(.header) .matrix-cell:first-child {
+    font-family: var(--font-display); font-size: 14px;
+    font-style: italic; color: var(--text-bright);
+    display: flex; flex-direction: column;
+    justify-content: center;
+  }
+  .matrix-row:not(.header):hover { background: var(--deep); }
+  .matrix-time-badge {
+    font-family: var(--font-mono); font-size: 8.5px;
+    letter-spacing: .15em; color: var(--tc);
+    margin-top: 4px;
+  }
+  .matrix-compounds {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    align-items: flex-start;
+  }
+  .matrix-compound-chip {
+    font-family: var(--font-label); font-size: 7.5px;
+    letter-spacing: .18em; color: var(--tc);
+    border: 1px solid rgba(58,148,136,.22);
+    padding: 3px 10px;
+    transition: border-color .3s, color .3s;
+  }
+  .matrix-row:hover .matrix-compound-chip {
+    border-color: rgba(58,148,136,.45);
+  }
+  .matrix-goal {
+    font-size: 13px; font-weight: 300;
+    font-style: italic; color: var(--text-dim);
+    line-height: 1.75;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--border-dim);
+    padding: 56px 0; position: relative; z-index: 1;
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { font-family: var(--font-display); font-size: 14px; font-style: italic; color: var(--text-faint); }
+  .footer-nav { display: flex; gap: 28px; }
+  .footer-nav a { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--text-faint); transition: color .3s; }
+  .footer-nav a:hover { color: var(--tc-light); }
+  .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; color: var(--text-faint); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .compound-grid { grid-template-columns: repeat(2, 1fr); }
+    .matrix-row { grid-template-columns: 180px 1fr 1fr; }
+  }
+  @media (max-width: 1024px) {
+    .container { padding: 0 40px; }
+    .site-nav { padding: 20px 40px; }
+    .site-nav.scrolled { padding: 14px 40px; }
+    .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+  }
+  @media (max-width: 768px) {
+    .compound-grid { grid-template-columns: 1fr; }
+    .matrix-row { grid-template-columns: 1fr; }
+    .matrix-cell.label-cell { display: none; }
+    .filter-bar { top: 60px; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 24px; }
+    .site-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<canvas class="starfield" id="starfield"></canvas>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav class="site-nav" id="nav">
+  <div class="nav-brand">
+    <span class="nav-wordmark">Science Coherence</span>
+    <span class="nav-sep">——</span>
+    <span class="nav-sub lbl">Extracts</span>
+  </div>
+  <div class="nav-links">
+    <a href="biohacking.html" class="nav-link">← Hub</a>
+    <a href="extracts.html" class="nav-link active">Extracts</a>
+    <a href="foundations.html" class="nav-link">Foundations</a>
+    <a href="../tcb-project/index.html" class="nav-link">Portal</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <a href="biohacking.html" class="hero-back">Bio-Hacking Command</a>
+    <div class="hero-badge">REGENESIS — STANDARDIZED EXTRACTS</div>
+    <h1 class="hero-title">Botanical &amp; Marine<br><em>Coherence Inputs</em></h1>
+    <p class="hero-subtitle">High-potency proprietary &amp; standardized compounds<br>for targeted phase-lock entrainment</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">17</span>
+        <span class="hero-meta-label lbl">Compounds</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">6</span>
+        <span class="hero-meta-label lbl">Categories</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">3</span>
+        <span class="hero-meta-label lbl">Timing Windows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <div class="container">
+    <div class="filter-inner">
+      <span class="filter-label lbl">Filter by</span>
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="cc-neuro">Neuroplasticity</button>
+      <button class="filter-btn" data-cat="cc-mood">Mood / Serotonin</button>
+      <button class="filter-btn" data-cat="cc-androgen">Androgen Drive</button>
+      <button class="filter-btn" data-cat="cc-metabolic">Metabolic</button>
+      <button class="filter-btn" data-cat="cc-cyto">Cytoprotection</button>
+      <button class="filter-btn" data-cat="cc-adaptogen">Adaptogen</button>
+    </div>
+  </div>
+</div>
+
+<!-- COMPOUND GRID -->
+<section class="grid-section">
+  <div class="container">
+    <div class="grid-section-label lbl reveal">17 Compounds — Standardized Protocol Library</div>
+    <div class="compound-grid" id="compoundGrid">
+
+      <!-- 1. ERINAMAX -->
+      <a href="erinamax.html" class="compound-card cc-neuro reveal">
+        <span class="card-cat">Neuroplasticity / NGF</span>
+        <div class="card-name">ErinaMAX™</div>
+        <div class="card-spec">Liquid Culture Mycelium — Erinacine A</div>
+        <ul class="card-mechanisms">
+          <li>Direct Erinacine A delivery across the blood-brain barrier.</li>
+          <li>Stimulates endogenous Nerve Growth Factor synthesis.</li>
+          <li>Neurosteroid modulation — Pregnenolone / Progesterone axis.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Intensifies REM-cycle vividity; triggers "real-time" mental sharpening and biophotonic signal amplification.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 2. COGNANCE -->
+      <a href="cognance.html" class="compound-card cc-neuro reveal">
+        <span class="card-cat">Creative Catalyst / 5-HT2A</span>
+        <div class="card-name">Cognance</div>
+        <div class="card-spec">Ebelin Lactone — Galbanum Extract</div>
+        <ul class="card-mechanisms">
+          <li>Positive Allosteric Modulator (PAM) of 5-HT2A receptors.</li>
+          <li>Enhanced Muscarinic M1 receptor activity for memory encoding.</li>
+          <li>Enhances creative flow states and lateral associative thinking.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Perceptual brightening and creative social fluidity — a clean divergent-thinking enhancer.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 3. ECKLONIA -->
+      <a href="ecklonia.html" class="compound-card cc-neuro reveal">
+        <span class="card-cat">Vascular Fluidity / AChE</span>
+        <div class="card-name">Ecklonia Cava</div>
+        <div class="card-spec">Marine Phlorotannins — 8% Dieckol</div>
+        <ul class="card-mechanisms">
+          <li>Potent eNOS upregulation for sustained cerebrovascular dilation.</li>
+          <li>Lipid-soluble marine phlorotannins with 12-hour plasma half-life.</li>
+          <li>Strong Acetylcholinesterase inhibition for cholinergic support.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Vascular lubricant that clears metabolic sludge from neural networks and amplifies signal transmission velocity.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 4. GOTU KOLA -->
+      <a href="gotukola.html" class="compound-card cc-neuro reveal">
+        <span class="card-cat">Neural Architecture / Collagen</span>
+        <div class="card-name">Gotu Kola</div>
+        <div class="card-spec">Centella Asiatica — Triterpenes</div>
+        <ul class="card-mechanisms">
+          <li>Stimulation of Type I Collagen synthesis — neural connective matrix.</li>
+          <li>Acetylcholinesterase inhibition for memory consolidation.</li>
+          <li>GABAergic modulation for calm focus without sedation.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Infrastructure builder — constructs the collagenous scaffold upon which ErinaMAX can wire new dendritic architecture.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 5. AGMATINE -->
+      <a href="agmatine.html" class="compound-card cc-neuro reveal">
+        <span class="card-cat">Neuromodulator / NOS</span>
+        <div class="card-name">Agmatine Sulfate</div>
+        <div class="card-spec">Decarboxylated Arginine — Sulfate Form</div>
+        <ul class="card-mechanisms">
+          <li>Selective NOS modulation — eNOS upregulated, nNOS clamped.</li>
+          <li>NMDA receptor antagonism for neuroprotection and tolerance reset.</li>
+          <li>Imidazoline receptor agonism for metabolic modulation.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The receptor reset mechanism — clears down-regulated receptor landscapes and restores baseline sensitivity.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 6. SAFFRON -->
+      <a href="saffron.html" class="compound-card cc-mood reveal">
+        <span class="card-cat">Mood / Serotonin</span>
+        <div class="card-name">Saffron Extract</div>
+        <div class="card-spec">Crocus Sativus — 7.5% Safranal</div>
+        <ul class="card-mechanisms">
+          <li>Selective reuptake inhibition across serotonin, dopamine, norepinephrine.</li>
+          <li>NMDA receptor antagonism for glutamate-mediated stress mitigation.</li>
+          <li>Vision preservation via retinal oxygenation and photoreceptor support.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Eliminates doom-spiraling loops; enhances visual saturation and color depth perception (RGB field amplification).
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 7. TRIBUGEN -->
+      <a href="tribugen.html" class="compound-card cc-androgen reveal">
+        <span class="card-cat">Androgen Drive / MAO-B</span>
+        <div class="card-name">TRIBUGEN™</div>
+        <div class="card-spec">Tribulus Terrestris — 90% Protodioscin</div>
+        <ul class="card-mechanisms">
+          <li>Androgen receptor (AR) upregulation in brain and skeletal muscle.</li>
+          <li>Dopaminergic focus enhancement via MAO-B inhibition floor.</li>
+          <li>CNS motor unit recruitment for explosive neuromuscular power.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Induces the social dominance neurological state — CNS-driven strength gains mediated by AR density.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 8. BLACK GINGER -->
+      <a href="blackginger.html" class="compound-card cc-androgen reveal">
+        <span class="card-cat">Metabolic / PDE5</span>
+        <div class="card-name">Black Ginger</div>
+        <div class="card-spec">Kaempferia Parviflora — 10% DMF</div>
+        <ul class="card-mechanisms">
+          <li>Potent AMPK activation for whole-body fuel utilization efficiency.</li>
+          <li>Natural PDE5 inhibition for peripheral and cerebrovascular flow.</li>
+          <li>Mitochondrial biogenesis via SIRT1/PGC-1α pathway activation.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Improves muscle density and "hardness" — provides the infinite gas tank sensation through sustained AMPK drive.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 9. CISTAMAX -->
+      <a href="cistamax.html" class="compound-card cc-metabolic reveal">
+        <span class="card-cat">Growth / Hormonal</span>
+        <div class="card-name">CistaMAX™</div>
+        <div class="card-spec">Cistanche Tubulosa — CO2 Supercritical Matrix</div>
+        <ul class="card-mechanisms">
+          <li>Upregulates steroidogenic enzymes StAR and CYP11A1.</li>
+          <li>Ghrelin receptor agonism — endogenous Growth Hormone pulse trigger.</li>
+          <li>Microbiome remodeling — supports Bacteroides genus expansion.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The hard gainer solution — triggers anabolic drive without the CNS edge of conventional secretagogues.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 10. C3G -->
+      <a href="c3g.html" class="compound-card cc-metabolic reveal">
+        <span class="card-cat">Partitioning / AMPK</span>
+        <div class="card-name">C3G</div>
+        <div class="card-spec">Cyanidin-3-Glucoside — Purple Force</div>
+        <ul class="card-mechanisms">
+          <li>GLUT4 translocation to muscle cell membrane for glucose shuttling.</li>
+          <li>AMPK-driven mitochondrial biogenesis and fat oxidation.</li>
+          <li>Reversible MAO inhibition for mood stabilization during high-load phases.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Physically remodels adipocyte morphology; enhances Rhodopsin regeneration for improved scotopic vision.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 11. ANDROGRAPHIS -->
+      <a href="andrographis.html" class="compound-card cc-metabolic reveal">
+        <span class="card-cat">Immune Sentinel / NF-kB</span>
+        <div class="card-name">Andrographis</div>
+        <div class="card-spec">Andrographis Paniculata — Andrographolides</div>
+        <ul class="card-mechanisms">
+          <li>Selective NF-kB and COX-2 modulation without full suppression.</li>
+          <li>Liver and gut-barrier integrity support via enhanced bile flow.</li>
+          <li>SIRT1 pathway interaction for longevity signaling synergy.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Metabolic coolant — blunts inflammatory load from high-throughput protein metabolism in carnivore protocols.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 12. ASTAXANTHIN -->
+      <a href="astaxanthin.html" class="compound-card cc-metabolic reveal">
+        <span class="card-cat">Antioxidant / Mitochondria</span>
+        <div class="card-name">Astaxanthin</div>
+        <div class="card-spec">Haematococcus Pluvialis — 10% Extract</div>
+        <ul class="card-mechanisms">
+          <li>Spans the full mitochondrial membrane — singlet oxygen quenching.</li>
+          <li>Crosses blood-brain and blood-retinal barriers simultaneously.</li>
+          <li>Upregulates Nrf2 for endogenous antioxidant enzyme induction.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The biophotonic antenna — enhances light transduction in the mitochondrial matrix and retinal coherence fields.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 13. NIGELLA SATIVA -->
+      <a href="nigella.html" class="compound-card cc-metabolic reveal">
+        <span class="card-cat">Metabolic / Thymoquinone</span>
+        <div class="card-name">Nigella Sativa</div>
+        <div class="card-spec">Black Seed — Thymoquinone Standardized</div>
+        <ul class="card-mechanisms">
+          <li>Thymoquinone activates Nrf2 and suppresses NF-kB concurrently.</li>
+          <li>Pancreatic beta-cell protection and insulin sensitivity enhancement.</li>
+          <li>Potent antimicrobial + antifungal for microbiome boundary enforcement.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The ancient coherence restorer — referenced across millennia as the remedy for everything except death itself.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 14. TUDCA -->
+      <a href="tudca.html" class="compound-card cc-cyto reveal">
+        <span class="card-cat">Cytoprotection / ER Stress</span>
+        <div class="card-name">TUDCA</div>
+        <div class="card-spec">Tauroursodeoxycholic Acid — 500mg</div>
+        <ul class="card-mechanisms">
+          <li>Endoplasmic Reticulum stress resolution — the UPR pathway reset.</li>
+          <li>Prevents apoptotic cascade activation in metabolically stressed cells.</li>
+          <li>Biliary integrity and gut-barrier tight junction support.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The metabolic eraser — improves T4 → T3 conversion in brown adipose tissue; restores cellular decision-making fidelity.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 15. INJUV -->
+      <a href="injuv.html" class="compound-card cc-cyto reveal">
+        <span class="card-cat">Deep Hydration / ECM</span>
+        <div class="card-name">Injuv®</div>
+        <div class="card-spec">Low-MW Hyaluronic Acid — 70mg</div>
+        <ul class="card-mechanisms">
+          <li>Low molecular weight HA (7kDa) for direct intestinal absorption.</li>
+          <li>Replenishes dermal matrix, synovial fluid, and vitreous humor.</li>
+          <li>Provides the aqueous architecture for cellular re-crystallization.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Internal blue balm — sustains extracellular matrix hydration coherence as the structural water layer for biophotonic propagation.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 16. ASHWAGANDHA -->
+      <a href="ashwagandha.html" class="compound-card cc-adaptogen reveal">
+        <span class="card-cat">Grounding Shield / HPA</span>
+        <div class="card-name">Ashwagandha</div>
+        <div class="card-spec">KSM-66 — 5% Withanolides</div>
+        <ul class="card-mechanisms">
+          <li>Systemic HPA-axis cortisol modulation — the stress-load dampener.</li>
+          <li>Supports DHEA floor and total testosterone baseline maintenance.</li>
+          <li>Mimetic GABAergic activity for deep recovery and sleep architecture.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          The biological shock absorber for high-androgen protocols — prevents temporal decoherence from cortisol-driven oscillator disruption.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+      <!-- 17. PANAMAX -->
+      <a href="panamax.html" class="compound-card cc-adaptogen reveal">
+        <span class="card-cat">Energy / Adaptogen</span>
+        <div class="card-name">PanaMAX™</div>
+        <div class="card-spec">Panax Ginseng Matrix — Schisandra Complex</div>
+        <ul class="card-mechanisms">
+          <li>Balanced root/leaf ginsenoside ratio for full-spectrum action.</li>
+          <li>Schisandra-driven bioavailability amplification and hepatoprotection.</li>
+          <li>Cortisol regulation and HPA-axis resilience support.</li>
+        </ul>
+        <div class="card-speculative">
+          <span class="spec-label">Speculative Field</span>
+          Stress-proof focus architecture — smooths stimulant jitter and provides the sustained cognitive throughput of a calibrated operator.
+        </div>
+        <div class="card-arrow"><span class="arrow-icon">↗</span></div>
+      </a>
+
+    </div><!-- /compound-grid -->
+  </div>
+</section>
+
+<!-- PROTOCOL MATRIX -->
+<section class="protocol-section">
+  <div class="container">
+    <div class="protocol-header reveal">
+      <div class="protocol-label lbl">Timing Protocol</div>
+      <h2 class="protocol-title">The Integrated <em>Coherence</em> Matrix</h2>
+      <p class="protocol-sub">Strategic timing of these extracts to maximize synergistic phase-locking and prevent receptor down-regulation through temporal cycling.</p>
+    </div>
+    <div class="matrix reveal">
+      <div class="matrix-row header">
+        <div class="matrix-cell label-cell">Timing Window</div>
+        <div class="matrix-cell label-cell">Primary Stack</div>
+        <div class="matrix-cell label-cell">Coherence Objective</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          Morning
+          <span class="matrix-time-badge">Fasted — 06:00–09:00</span>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-compounds">
+            <span class="matrix-compound-chip">PanaMAX™</span>
+            <span class="matrix-compound-chip">ErinaMAX™</span>
+            <span class="matrix-compound-chip">TRIBUGEN™</span>
+            <span class="matrix-compound-chip">Injuv®</span>
+            <span class="matrix-compound-chip">Ecklonia Cava</span>
+            <span class="matrix-compound-chip">Cognance</span>
+            <span class="matrix-compound-chip">Astaxanthin</span>
+          </div>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-goal">CNS phase-lock activation, vascular priming, biophotonic field amplification, and deep matrix hydration establishment. The launch sequence for peak coherence state.</div>
+        </div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          Pre-Meal
+          <span class="matrix-time-badge">Pre-Carnivore — 12:00–13:00</span>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-compounds">
+            <span class="matrix-compound-chip">C3G</span>
+            <span class="matrix-compound-chip">TUDCA</span>
+            <span class="matrix-compound-chip">Black Ginger</span>
+            <span class="matrix-compound-chip">Andrographis</span>
+            <span class="matrix-compound-chip">Nigella Sativa</span>
+          </div>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-goal">Nutrient partitioning and ER stress pre-emption for the high-protein raw substrate load. AMPK activation prepares mitochondrial networks for high-throughput energy extraction.</div>
+        </div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          Evening
+          <span class="matrix-time-badge">Post-Meal — 19:00–21:00</span>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-compounds">
+            <span class="matrix-compound-chip">CistaMAX™</span>
+            <span class="matrix-compound-chip">Agmatine</span>
+            <span class="matrix-compound-chip">Saffron</span>
+            <span class="matrix-compound-chip">Gotu Kola</span>
+            <span class="matrix-compound-chip">Ashwagandha</span>
+          </div>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-goal">Anabolic recovery induction, NMDA balance restoration, neural infrastructure repair, and HPA-axis wind-down. Prepares the oscillatory hierarchy for the master update cycle of sleep.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">Science Coherence Institute</div>
+      <div class="footer-nav">
+        <a href="biohacking.html">← Hub</a>
+        <a href="foundations.html">Foundations</a>
+        <a href="../tcb-project/index.html">Portal</a>
+      </div>
+      <div class="footer-copy">© 2026 — Protocol 001</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // CURSOR
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+  function animRing() { rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+  animRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hov'); ring.classList.add('hov'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hov'); ring.classList.remove('hov'); });
+  });
+
+  // NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+  // FILTER
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.compound-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      cards.forEach(card => {
+        if (cat === 'all' || card.classList.contains(cat)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // STARFIELD
+  (function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = Array.from({ length: 140 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * .9 + .2,
+        a: Math.random(),
+        s: Math.random() * .004 + .001
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.a += s.s; if (s.a > 1) s.s *= -1; if (s.a < 0) s.s *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(90,180,168,${s.a * .55})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    resize(); window.addEventListener('resize', resize); draw();
+  })();
+
+  // REVEAL
+  const revEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regenesis — Bio-Hacking Command | Science Coherence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Cinzel:wght@400;500&family=JetBrains+Mono:wght@300;400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #040508;
+    --obsidian: #07080e;
+    --deep: #0c0d14;
+    --surface: #111218;
+    --raised: #17181f;
+    --border-dim: #1a1b24;
+    --border: #232430;
+
+    --text-faint: #2e3040;
+    --text-dim: #4a4e66;
+    --text-mid: #6e7490;
+    --text-body: #9ca3b8;
+    --text-bright: #c0c6d8;
+    --text-head: #e2e6f0;
+
+    --amber: #9a7848;
+    --amber-light: #b89060;
+
+    --tc: #3a9488;
+    --tc-light: #5ab8aa;
+    --tc-dim: rgba(58, 148, 136, 0.08);
+
+    --cs-core: #5a84c8;
+    --cs-light: #7aa8e8;
+    --cs-dim: rgba(90, 132, 200, 0.08);
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-label: 'Cinzel', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Jost', sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  /* ── GRAIN ── */
+  .grain {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .028;
+    pointer-events: none;
+    z-index: 9998;
+    animation: grainShift .5s steps(2) infinite;
+  }
+  @keyframes grainShift {
+    0% { transform: translate(0,0) }
+    25% { transform: translate(-2%,-1%) }
+    50% { transform: translate(1%,2%) }
+    75% { transform: translate(-1%,1%) }
+    100% { transform: translate(2%,-2%) }
+  }
+
+  /* ── CURSOR ── */
+  .cursor-dot {
+    position: fixed;
+    width: 7px; height: 7px;
+    background: var(--tc-light);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%,-50%);
+    transition: width .3s var(--ease-out), height .3s var(--ease-out);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 34px; height: 34px;
+    border: 1px solid rgba(90,180,168,.28);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: all .4s var(--ease-out);
+  }
+  .cursor-dot.hov { width: 5px; height: 5px; }
+  .cursor-ring.hov { width: 52px; height: 52px; border-color: rgba(90,180,168,.12); }
+
+  /* ── STARFIELD ── */
+  .starfield { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 26px 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: padding .5s var(--ease-out), background .5s, border-color .5s;
+    border-bottom: 1px solid transparent;
+  }
+  .site-nav.scrolled {
+    padding: 16px 72px;
+    background: rgba(4,5,8,.95);
+    backdrop-filter: blur(24px);
+    border-bottom-color: var(--border-dim);
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-wordmark {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-head);
+    letter-spacing: 0.05em;
+  }
+  .nav-sep {
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .3em;
+    color: var(--text-faint);
+  }
+  .nav-sub {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .35em;
+    color: var(--tc);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-link {
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .35em;
+    color: var(--text-faint);
+    transition: color .3s;
+    text-transform: uppercase;
+  }
+  .nav-link:hover { color: var(--tc-light); }
+
+  /* ── UTILS ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 72px; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .lbl {
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    padding-top: 120px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(58,148,136,.05) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-tc 10s ease-in-out infinite;
+  }
+
+  @keyframes pulse-tc {
+    0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: .5; }
+    50% { transform: translate(-50%,-50%) scale(1.25); opacity: 1; }
+  }
+
+  .hero-badge {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--tc);
+    border: 1px solid rgba(58,148,136,.3);
+    padding: .4rem 1.2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1s ease-out .2s both;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    line-height: 1;
+    letter-spacing: -.02em;
+    color: var(--text-head);
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1.2s ease-out .4s both;
+  }
+  .hero-title em { color: var(--tc-light); font-style: normal; }
+
+  .hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    letter-spacing: .2em;
+    color: var(--text-mid);
+    margin-top: 2.5rem;
+    max-width: 600px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1.2s ease-out .7s both;
+    line-height: 1.8;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    animation: fadeSlideDown 1.2s ease-out 1.2s both;
+  }
+  .scroll-indicator span {
+    font-family: var(--font-mono);
+    font-size: .55rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--text-dim), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: .3; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── INTRO SECTION ── */
+  .intro {
+    padding: 120px 0;
+    border-top: 1px solid var(--border-dim);
+    position: relative;
+    z-index: 1;
+  }
+  .intro-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .intro-left {
+    position: sticky;
+    top: 120px;
+  }
+  .intro-axis-label {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .5em;
+    color: var(--tc);
+    margin-bottom: 20px;
+  }
+  .intro-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 40px);
+    font-style: italic;
+    color: var(--text-head);
+    line-height: 1.1;
+    letter-spacing: -.018em;
+  }
+  .intro-title em { color: var(--tc-light); font-style: normal; }
+  .intro-rule {
+    width: 36px; height: 1px;
+    background: var(--tc);
+    margin-top: 24px;
+  }
+  .intro-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.9;
+  }
+  .intro-body p { margin-bottom: 24px; }
+  .intro-body p:last-child { margin-bottom: 0; }
+  .intro-body em { color: var(--text-bright); font-style: normal; }
+
+  /* ── ENTRY CARDS SECTION ── */
+  .entry-section {
+    padding: 0 0 140px;
+    position: relative;
+    z-index: 1;
+  }
+  .entry-header {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .entry-label {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .5em;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .entry-heading {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3vw, 36px);
+    font-style: italic;
+    color: var(--text-head);
+    letter-spacing: -.018em;
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border-dim);
+  }
+
+  .entry-card {
+    background: var(--obsidian);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: background .5s var(--ease-out);
+    cursor: pointer;
+  }
+
+  .entry-card:hover { background: var(--deep); }
+
+  .entry-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    transition: opacity .4s;
+  }
+  .entry-card.teal::before { background: var(--tc); }
+  .entry-card.blue::before { background: var(--cs-core); }
+
+  .entry-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity .6s var(--ease-out);
+    pointer-events: none;
+  }
+  .entry-card.teal::after { background: radial-gradient(circle, rgba(58,148,136,.07) 0%, transparent 70%); }
+  .entry-card.blue::after { background: radial-gradient(circle, rgba(90,132,200,.07) 0%, transparent 70%); }
+  .entry-card:hover::after { opacity: 1; }
+
+  .entry-count {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 8vw, 120px);
+    font-style: italic;
+    color: transparent;
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+  .entry-card.teal .entry-count { -webkit-text-stroke: 1px rgba(58,148,136,.18); }
+  .entry-card.blue .entry-count { -webkit-text-stroke: 1px rgba(90,132,200,.18); }
+
+  .entry-tag {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+  }
+  .entry-card.teal .entry-tag { color: var(--tc); }
+  .entry-card.blue .entry-tag { color: var(--cs-core); }
+
+  .entry-name {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-style: italic;
+    color: var(--text-head);
+    line-height: 1.1;
+    letter-spacing: -.015em;
+  }
+  .entry-card.teal .entry-name em { color: var(--tc-light); font-style: normal; }
+  .entry-card.blue .entry-name em { color: var(--cs-light); font-style: normal; }
+
+  .entry-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.85;
+    max-width: 400px;
+  }
+
+  .entry-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .entry-chip {
+    font-family: var(--font-label);
+    font-size: 7.5px;
+    letter-spacing: .2em;
+    padding: 4px 12px;
+    border: 1px solid;
+    transition: border-color .3s, color .3s;
+  }
+  .entry-card.teal .entry-chip {
+    color: var(--tc);
+    border-color: rgba(58,148,136,.25);
+  }
+  .entry-card.teal:hover .entry-chip {
+    border-color: rgba(58,148,136,.5);
+  }
+  .entry-card.blue .entry-chip {
+    color: var(--cs-core);
+    border-color: rgba(90,132,200,.25);
+  }
+  .entry-card.blue:hover .entry-chip {
+    border-color: rgba(90,132,200,.5);
+  }
+
+  .entry-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    transition: gap .3s var(--ease-out);
+  }
+  .entry-card.teal .entry-cta { color: var(--tc-light); }
+  .entry-card.blue .entry-cta { color: var(--cs-light); }
+  .entry-card:hover .entry-cta { gap: 20px; }
+
+  .cta-arrow {
+    width: 24px;
+    height: 1px;
+    position: relative;
+    transition: width .3s var(--ease-out);
+  }
+  .entry-card.teal .cta-arrow { background: var(--tc); }
+  .entry-card.blue .cta-arrow { background: var(--cs-core); }
+  .cta-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translate(0,-50%) rotate(45deg);
+    width: 5px; height: 5px;
+    border-right: 1px solid;
+    border-top: 1px solid;
+  }
+  .entry-card.teal .cta-arrow::after { border-color: var(--tc); }
+  .entry-card.blue .cta-arrow::after { border-color: var(--cs-core); }
+  .entry-card:hover .cta-arrow { width: 40px; }
+
+  /* ── PROTOCOL AXIOMS ── */
+  .axioms {
+    padding: 120px 0 140px;
+    border-top: 1px solid var(--border-dim);
+    position: relative;
+    z-index: 1;
+  }
+  .axioms-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .axioms-label {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .5em;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .axioms-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-style: italic;
+    color: var(--text-head);
+    letter-spacing: -.015em;
+  }
+
+  .axioms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border-dim);
+  }
+
+  .axiom-card {
+    background: var(--obsidian);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: background .4s;
+  }
+  .axiom-card:hover { background: var(--deep); }
+  .axiom-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+  }
+  .axiom-card:nth-child(1)::before { background: var(--tc); }
+  .axiom-card:nth-child(2)::before { background: var(--cs-core); }
+  .axiom-card:nth-child(3)::before { background: rgba(154,120,72,.6); }
+
+  .axiom-num {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border);
+    line-height: 1;
+  }
+  .axiom-tag {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .35em;
+  }
+  .axiom-card:nth-child(1) .axiom-tag { color: var(--tc); }
+  .axiom-card:nth-child(2) .axiom-tag { color: var(--cs-core); }
+  .axiom-card:nth-child(3) .axiom-tag { color: var(--amber-light); }
+
+  .axiom-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--text-head);
+    line-height: 1.15;
+  }
+  .axiom-body {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.85;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--border-dim);
+    padding: 56px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-faint);
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: .2em;
+    color: var(--text-faint);
+  }
+  .footer-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .footer-nav a {
+    font-family: var(--font-label);
+    font-size: 8px;
+    letter-spacing: .35em;
+    color: var(--text-faint);
+    transition: color .3s;
+  }
+  .footer-nav a:hover { color: var(--tc-light); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .container { padding: 0 40px; }
+    .site-nav { padding: 20px 40px; }
+    .site-nav.scrolled { padding: 14px 40px; }
+    .intro-inner { grid-template-columns: 1fr; gap: 48px; }
+    .intro-left { position: static; }
+    .entry-grid { grid-template-columns: 1fr; }
+    .axioms-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 24px; }
+    .site-nav { padding: 16px 24px; }
+    .site-nav.scrolled { padding: 12px 24px; }
+    .nav-links { display: none; }
+    .entry-card { padding: 48px 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<canvas class="starfield" id="starfield"></canvas>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav class="site-nav" id="nav">
+  <div class="nav-brand">
+    <span class="nav-wordmark">Science Coherence</span>
+    <span class="nav-sep">——</span>
+    <span class="nav-sub lbl">Regenesis</span>
+  </div>
+  <div class="nav-links">
+    <a href="../tcb-project/index.html" class="nav-link">Portal</a>
+    <a href="extracts.html" class="nav-link">Extracts</a>
+    <a href="foundations.html" class="nav-link">Foundations</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">REGENESIS PROTOCOL — BIO-HACKING COMMAND</div>
+  <h1 class="hero-title">Biological <em>Re-Crystallization</em></h1>
+  <p class="hero-subtitle">
+    A compound library for temporal coherence restoration,<br>
+    phase-lock entrainment, and substrate-level regeneration.
+  </p>
+  <div class="scroll-indicator">
+    <span>Enter</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="container">
+    <div class="intro-inner reveal">
+      <div class="intro-left">
+        <div class="intro-axis-label lbl">Framework</div>
+        <h2 class="intro-title">The <em>Coherence</em> Hypothesis</h2>
+        <div class="intro-rule"></div>
+      </div>
+      <div class="intro-body">
+        <p>Health is not the absence of disease. It is the active maintenance of <em>phase-lock fidelity</em> across the body's nested oscillatory hierarchy — from intracellular microtubules up through the biophotonic field and into planetary entrainment cycles.</p>
+        <p>The compounds catalogued here are not pharmaceutical agents to be used for symptom suppression. They are <em>coherence inputs</em> — informational structures capable of re-anchoring decoherent biological systems, re-aligning oscillator networks, and providing the raw substrate architecture that cellular re-crystallization demands.</p>
+        <p>The library is divided into two functional strata: <em>Standardized Extracts</em>, which deliver high-potency botanical and marine signaling molecules, and <em>Foundational Compounds</em>, which constitute the base substrate layer — the amino acids and cofactors upon which all higher-order coherence is built.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTRY CARDS -->
+<section class="entry-section">
+  <div class="container">
+    <div class="entry-header reveal">
+      <div class="entry-label lbl">Select Protocol</div>
+      <h2 class="entry-heading">Choose Your Compound Library</h2>
+    </div>
+    <div class="entry-grid reveal">
+
+      <!-- CARD 1: EXTRACTS -->
+      <a href="extracts.html" class="entry-card teal">
+        <span class="entry-count">17</span>
+        <span class="entry-tag lbl">Standardized Extracts</span>
+        <h3 class="entry-name">Botanical &amp; Marine<br><em>Coherence Inputs</em></h3>
+        <p class="entry-desc">High-potency proprietary extracts delivering targeted signaling molecules — from NGF induction and androgen receptor modulation to biophotonic field amplification and morphogenetic substrate provision.</p>
+        <div class="entry-tags-row">
+          <span class="entry-chip">Neuroplasticity</span>
+          <span class="entry-chip">Androgen Drive</span>
+          <span class="entry-chip">Cytoprotection</span>
+          <span class="entry-chip">Metabolic Partitioning</span>
+          <span class="entry-chip">Vascular Fluidity</span>
+        </div>
+        <div class="entry-cta">
+          <span>Enter Protocol</span>
+          <span class="cta-arrow"></span>
+        </div>
+      </a>
+
+      <!-- CARD 2: FOUNDATIONS -->
+      <a href="foundations.html" class="entry-card blue">
+        <span class="entry-count">6</span>
+        <span class="entry-tag lbl">Foundational Compounds</span>
+        <h3 class="entry-name">Substrate <em>Architecture</em><br>Layer</h3>
+        <p class="entry-desc">The primary substrate layer — amino acids, methyl donors, and energy cofactors. These compounds establish the informational ground state upon which all higher-order coherence interventions are effective.</p>
+        <div class="entry-tags-row">
+          <span class="entry-chip">Methylation</span>
+          <span class="entry-chip">ATP Buffering</span>
+          <span class="entry-chip">Collagen Matrix</span>
+          <span class="entry-chip">Ammonia Clearance</span>
+          <span class="entry-chip">Sleep Architecture</span>
+        </div>
+        <div class="entry-cta">
+          <span>Enter Protocol</span>
+          <span class="cta-arrow"></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL AXIOMS -->
+<section class="axioms">
+  <div class="container">
+    <div class="axioms-header reveal">
+      <div class="axioms-label lbl">Core Principles</div>
+      <h2 class="axioms-title">The Three Pillars of Biological Coherence</h2>
+    </div>
+    <div class="axioms-grid reveal">
+      <div class="axiom-card">
+        <div class="axiom-num">I</div>
+        <div class="axiom-tag lbl">Purity</div>
+        <div class="axiom-title">Substrate Integrity</div>
+        <div class="axiom-body">Lowering the signal-to-noise ratio by eliminating synthetic interference and providing only evolutionary, primal inputs. Every compound must preserve its morphogenetic field architecture — thermal processing above 42°C is a disqualifier.</div>
+      </div>
+      <div class="axiom-card">
+        <div class="axiom-num">II</div>
+        <div class="axiom-tag lbl">Rhythm</div>
+        <div class="axiom-title">Temporal Precision</div>
+        <div class="axiom-body">Aligning metabolic and circadian clocks with solar and lunar entrainment cycles. Each compound is timed to its resonance window — fasted morning, pre-meal, or deep evening recovery. The dose is the rhythm.</div>
+      </div>
+      <div class="axiom-card">
+        <div class="axiom-num">III</div>
+        <div class="axiom-tag lbl">Resonance</div>
+        <div class="axiom-title">Field Integration</div>
+        <div class="axiom-body">Phase-locking the individual's electromagnetic signature with the fundamental geometry of Earth and Cosmos. Biophotonic coherence is the target state — where the biological time crystal achieves self-sustaining oscillation across all five nested layers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">Science Coherence Institute</div>
+      <div class="footer-nav">
+        <a href="../tcb-project/index.html">Portal</a>
+        <a href="extracts.html">Extracts</a>
+        <a href="foundations.html">Foundations</a>
+      </div>
+      <div class="footer-copy">© 2026 — Protocol 001</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // CURSOR
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+  function animRing() {
+    rx += (mx - rx) * .12;
+    ry += (my - ry) * .12;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hov'); ring.classList.add('hov'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hov'); ring.classList.remove('hov'); });
+  });
+
+  // NAV SCROLL
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // STARFIELD
+  (function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = Array.from({ length: 140 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * .9 + .2,
+        a: Math.random(),
+        s: Math.random() * .004 + .001
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.a += s.s;
+        if (s.a > 1) s.s *= -1;
+        if (s.a < 0) s.s *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(90,180,168,${s.a * .6})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    draw();
+  })();
+
+  // REVEAL ON SCROLL
+  const revEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  revEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
