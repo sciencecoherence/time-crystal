@@ -14,6 +14,7 @@
     var inMobile = path.includes('/mobile/');
 
     if (isMobile && !inMobile) {
+        // /model/index.html → /model/mobile/index.html
         // /portal/main-project/cosmos.html → /portal/main-project/mobile/cosmos.html
         var parts = path.split('/');
         var file = parts.pop();
