@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="../router.js"></script>
+     <script src="../../router.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ethos — Science Coherence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1711,6 +1711,668 @@
     .footer-right a:hover {
       color: var(--et-light);
     }
+
+    /* ============================================================
+       HAMBURGER
+       ============================================================ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: 1px solid var(--border-dim);
+      cursor: pointer;
+      z-index: 1002;
+      padding: 0;
+      transition: border-color .3s;
+    }
+
+    .hamburger:hover {
+      border-color: rgba(200, 148, 58, .35);
+    }
+
+    .hamburger span {
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--text-faint);
+      transition: transform .35s var(--ease-out), opacity .25s, background .3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+      background: var(--et-light);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+      background: var(--et-light);
+    }
+
+    /* ============================================================
+       MOBILE MENU
+       ============================================================ */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: rgba(5, 4, 0, .97);
+      backdrop-filter: blur(32px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .45s var(--ease-out);
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      text-align: center;
+    }
+
+    .mobile-menu-label {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .5em;
+      color: var(--text-faint);
+      margin-bottom: 40px;
+    }
+
+    .mobile-menu-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 18px 24px;
+      text-decoration: none;
+      transition: opacity .3s;
+    }
+
+    .mobile-menu-link em {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--et-core);
+      font-style: italic;
+    }
+
+    .mobile-menu-link span:not(.link-sub) {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-style: italic;
+      color: var(--text-head);
+      letter-spacing: -.01em;
+    }
+
+    .mobile-menu-link .link-sub {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .3em;
+      color: var(--text-faint);
+    }
+
+    .mobile-menu-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    .mobile-menu-portal {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--text-dim);
+      margin-top: 8px;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: color .3s;
+    }
+
+    .mobile-menu-portal:hover {
+      color: var(--text-body);
+    }
+
+    .mobile-menu-model {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: .35em;
+      color: var(--void);
+      background: var(--et-light);
+      padding: 16px 36px;
+      margin-top: 16px;
+      text-decoration: none;
+      transition: background .3s;
+    }
+
+    .mobile-menu-model:hover {
+      background: var(--et-pale);
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET (max-width: 1024px)
+       ============================================================ */
+    @media (max-width: 1024px) {
+      .container {
+        padding: 0 40px;
+      }
+
+      nav {
+        padding: 22px 40px;
+      }
+
+      nav.scrolled {
+        padding: 14px 40px;
+      }
+
+      .hero-content {
+        padding: 140px 40px 100px;
+      }
+
+      .hero-scroll {
+        left: 40px;
+      }
+
+      .axiom-inner {
+        grid-template-columns: 200px 1fr;
+        gap: 60px;
+      }
+
+      .wi-inner {
+        gap: 72px;
+      }
+
+      .sr-inner {
+        gap: 72px;
+      }
+
+      .sl-inner {
+        gap: 72px;
+      }
+
+      .bridge-inner {
+        gap: 72px;
+      }
+
+      .domains-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .domain-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .pa-area {
+        padding: 44px 36px;
+      }
+
+      .reading-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .reading-card:first-child {
+        grid-column: 1 / -1;
+      }
+
+      footer {
+        padding: 44px 40px 36px;
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE — MOBILE (max-width: 768px)
+       ============================================================ */
+    @media (max-width: 768px) {
+
+      /* Disable custom cursor */
+      body {
+        cursor: auto;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none !important;
+      }
+
+      .container {
+        padding: 0 24px;
+      }
+
+      /* NAV */
+      nav {
+        padding: 18px 24px;
+      }
+
+      nav.scrolled {
+        padding: 14px 24px;
+      }
+
+      .nav-left {
+        gap: 16px;
+      }
+
+      .nav-left .nav-sep,
+      .nav-left .nav-brand {
+        display: none;
+      }
+
+      .nav-branch-badge {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      /* HERO */
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-content {
+        padding: 120px 24px 72px;
+        max-width: 100%;
+      }
+
+      .hero-title {
+        font-size: clamp(40px, 11vw, 68px);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(14px, 3.8vw, 18px);
+        margin-bottom: 28px;
+      }
+
+      .hero-body {
+        font-size: 14px;
+        line-height: 1.8;
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .btn-et,
+      .btn-outline-et {
+        width: 100%;
+        text-align: center;
+        padding: 16px 28px;
+      }
+
+      .hero-scroll {
+        display: none;
+      }
+
+      .hero-mandala {
+        width: 100%;
+        opacity: .25;
+        right: -30%;
+      }
+
+      /* AXIOM */
+      .axiom {
+        padding: 64px 0;
+      }
+
+      .axiom-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .axiom-text {
+        font-size: clamp(18px, 5vw, 26px);
+      }
+
+      /* WHAT IS ETHOS */
+      .what-is {
+        padding: 80px 0;
+      }
+
+      .wi-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .wi-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      .wi-distinction {
+        padding: 28px 24px;
+      }
+
+      /* THREE DOMAINS */
+      .domains {
+        padding: 80px 0;
+      }
+
+      .domains-header {
+        margin-bottom: 48px;
+      }
+
+      .domains-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      .domains-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .domain-card:last-child {
+        grid-column: auto;
+      }
+
+      .domain-top {
+        padding: 40px 28px 32px;
+      }
+
+      .domain-bottom {
+        padding: 24px 28px 36px;
+      }
+
+      .domain-glyph {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+
+      .domain-name {
+        font-size: 22px;
+      }
+
+      /* SELF-REALIZATION */
+      .selfrealization {
+        padding: 80px 0;
+      }
+
+      .sr-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .sr-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      .sr-visual {
+        order: -1;
+      }
+
+      .sr-visual svg {
+        max-width: 320px;
+      }
+
+      .sr-phase {
+        padding: 18px 20px;
+        grid-template-columns: 28px 1fr;
+        gap: 12px;
+      }
+
+      /* SCIENCE OF LIVING */
+      .science-living {
+        padding: 80px 0;
+      }
+
+      .sl-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .sl-left {
+        position: static;
+      }
+
+      .sl-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      .sl-p-inner {
+        padding: 28px 24px;
+      }
+
+      .sl-p-name {
+        font-size: 19px;
+      }
+
+      /* BRIDGE / BIOLOGY */
+      .bridge {
+        padding: 80px 0;
+      }
+
+      .bridge-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .bridge-title {
+        font-size: clamp(28px, 8vw, 42px);
+      }
+
+      .bridge-visual {
+        order: -1;
+      }
+
+      .bridge-visual svg {
+        max-width: 320px;
+      }
+
+      .bc-card {
+        padding: 24px 20px;
+        grid-template-columns: 40px 1fr;
+        gap: 16px;
+      }
+
+      /* PRACTICE AREAS */
+      .practice-areas {
+        padding: 80px 0;
+      }
+
+      .pa-header {
+        margin-bottom: 48px;
+      }
+
+      .pa-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      .pa-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pa-area {
+        padding: 40px 28px;
+      }
+
+      .pa-area-name {
+        font-size: 22px;
+      }
+
+      /* READING / ESSAYS */
+      .reading {
+        padding: 80px 0;
+      }
+
+      .reading-header {
+        margin-bottom: 40px;
+      }
+
+      .reading-title {
+        font-size: clamp(28px, 8vw, 42px);
+      }
+
+      .reading-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reading-card:first-child {
+        grid-column: auto;
+      }
+
+      .reading-card {
+        padding: 36px 24px;
+      }
+
+      .reading-card:first-child .rc-title {
+        font-size: 22px;
+      }
+
+      /* FINAL CTA */
+      .branch-cta {
+        padding: 80px 0;
+      }
+
+      .bcta-title {
+        font-size: clamp(32px, 9vw, 52px);
+      }
+
+      .bcta-body {
+        font-size: 14px;
+        margin-bottom: 36px;
+      }
+
+      .bcta-actions {
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .bcta-actions .btn-et,
+      .bcta-actions .btn-outline-et {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 36px 24px 28px;
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .footer-right {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE — SMALL MOBILE (max-width: 480px)
+       ============================================================ */
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      nav {
+        padding: 16px 18px;
+      }
+
+      nav.scrolled {
+        padding: 12px 18px;
+      }
+
+      .hero-content {
+        padding: 110px 18px 56px;
+      }
+
+      .hero-title {
+        font-size: clamp(34px, 10vw, 48px);
+      }
+
+      .axiom-text {
+        font-size: 16px;
+      }
+
+      .wi-distinction {
+        padding: 24px 18px;
+      }
+
+      .domain-top {
+        padding: 32px 20px 28px;
+      }
+
+      .domain-bottom {
+        padding: 20px 20px 32px;
+      }
+
+      .sr-phase {
+        padding: 16px 16px;
+      }
+
+      .sl-p-inner {
+        padding: 24px 18px;
+      }
+
+      .bc-card {
+        padding: 20px 16px;
+      }
+
+      .pa-area {
+        padding: 32px 20px;
+      }
+
+      .reading-card {
+        padding: 28px 18px;
+      }
+
+      footer {
+        padding: 32px 18px 24px;
+      }
+    }
+
+    /* ============================================================
+       TOUCH DEVICE OVERRIDES
+       ============================================================ */
+    @media (hover: none) and (pointer: coarse) {
+      body {
+        cursor: auto;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none !important;
+      }
+
+      .domain-card,
+      .sl-principle,
+      .pa-area,
+      .bc-card,
+      .wi-distinction,
+      .reading-card,
+      .sr-phase {
+        cursor: pointer;
+      }
+    }
   </style>
 </head>
 
@@ -1745,8 +2407,39 @@
         <span class="nav-wordmark"></span>
       </div>
     </div>
-    <div class="nav-branch-badge">Ethos Practice</div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="nav-branch-badge">Ethos Practice</div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- ══════════════ MOBILE MENU ══════════════ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <div class="mobile-menu-label">Navigate</div>
+      <a href="#domains" class="mobile-menu-link" data-close>
+        <em>I</em>
+        <span>Three Domains</span>
+        <span class="link-sub">Inquiry · Alignment · Coherence</span>
+      </a>
+      <a href="#selfrealization" class="mobile-menu-link" data-close>
+        <em>II</em>
+        <span>Self-Realization</span>
+        <span class="link-sub">Five Phases · The Arc</span>
+      </a>
+      <a href="#reading" class="mobile-menu-link" data-close>
+        <em>III</em>
+        <span>Ethos Library</span>
+        <span class="link-sub">Essays · Practice Guides</span>
+      </a>
+      <div class="mobile-menu-divider"></div>
+      <a href="index.html" class="mobile-menu-model" data-close>The Ethos Model</a>
+      <div class="mobile-menu-divider" style="opacity:.3;"></div>
+      <a href="../index.html" class="mobile-menu-portal" data-close>← Return to Portal</a>
+    </div>
+  </div>
 
   <!-- ============================================================
      HERO
@@ -2569,6 +3262,39 @@
 
       resize(); mkStars(); draw();
       window.addEventListener('resize', () => { resize(); mkStars(); }, { passive: true });
+    })();
+
+    /* Mobile menu */
+    (function () {
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+        document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+      });
+
+      menu.querySelectorAll('[data-close]').forEach(link => {
+        link.addEventListener('click', () => {
+          btn.classList.remove('open');
+          menu.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    })();
+
+    /* Disable custom cursor on touch devices */
+    (function () {
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (isTouch) {
+        document.body.style.cursor = 'auto';
+        const c = document.getElementById('cursor');
+        const r = document.getElementById('ring');
+        if (c) c.style.display = 'none';
+        if (r) r.style.display = 'none';
+      }
     })();
   </script>
 </body>
