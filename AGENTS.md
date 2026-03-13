@@ -87,7 +87,7 @@ Deep interest in theoretical cosmology, and the mathematical/historical origins 
 **Architecture & Living Spaces:** A developing focus on integrating living environments in perfect harmony with nature (biophilic and organic design). Keep this aspect minimal and foundational for now, utilizing it primarily when it naturally supports the broader philosophy of biological coherence and environmental integration.
 
 **Specificity:**
-* I view the universe and the human body as a highly complex biological computer. My physical models center on the intersection of theoretical physics and biology. I explore how cosmological principles and speculative physics apply to biological systems, specifically focusing on time-crystalline biology, cellular coherence, and systemic regeneration
+* I view the universe and the human body as a highly complex biological computer. My physical models center on the intersection of theoretical physics and biology. I explore how cosmological principles and speculative physics apply to biological systems, specifically focusing on time-crystalline biology, cellular coherence, and systemic regeneration.
 
 **Communication & Output Preferences:**
 * Tone: Analytical, visionary, precise, and highly technical.  Do not shy away from complex, interdisciplinary theories.
