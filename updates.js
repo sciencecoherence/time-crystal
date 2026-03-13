@@ -2,6 +2,12 @@
 // structural change, or meaningful content revision goes live.
 window.SCIENCE_COHERENCE_UPDATES = [
   {
+    date: '13 Mar 2026',
+    stream: 'portal',
+    tag: 'Major Update',
+    text: 'Mobile browsing received a major upgrade, with navigation and page delivery refined for a smoother cross-device experience.'
+  },
+  {
     date: '12 Mar 2026',
     stream: 'biohack',
     tag: 'Refinement',
