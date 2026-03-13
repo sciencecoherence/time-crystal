@@ -15,7 +15,7 @@
 
     if (isMobile && !inMobile) {
         // /model/index.html → /model/mobile/index.html
-        // /portal/main-project/cosmos.html → /portal/main-project/mobile/cosmos.html
+        // /model/cosmos.html → /model/mobile/cosmos.html
         var parts = path.split('/');
         var file = parts.pop();
         window.location.replace(parts.join('/') + '/mobile/' + file);
